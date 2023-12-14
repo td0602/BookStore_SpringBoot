@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/head::head}"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <header th:replace="~{admin/fragments/header::header}"></header>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <div th:replace="~{admin/fragments/sidebar::sidebar}"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Chào mừng bạn đến với trang danh mục
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Thêm mới danh mục</h3>
+                </div>
+
+            </div>
+
+            <section>
+                <div class="box box-primary">
+                    <form role="form" method="post" th:action="@{/admin/edit-category}" th:object="${category}">
+                        <input type="hidden" class="form-control" id="exampleInputEmail2" placeholder="Enter Category Name" th:field="*{id}">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Category Name</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Category Name" th:field="*{categoryName}">
+                            </div>
+                            <div class="form-group">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="true" checked="" th:field="${category.categoryStatus}">
+                                        Active
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="false" th:field="*{categoryStatus}">
+                                        Hidden
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer th:replace="~{admin/fragments/footer::footer}"></footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:replace="~{admin/fragments/script::script}"></script>
+</body>
+</html>

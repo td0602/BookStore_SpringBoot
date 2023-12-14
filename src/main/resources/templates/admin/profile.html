@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/head::head}"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <header th:replace="~{admin/fragments/header::header}"></header>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <div th:replace="~{admin/fragments/sidebar::sidebar}"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-3">
+
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                                <img class="profile-user-img img-responsive img-circle" th:if="${user.image ne null}" th:src="@{'/uploads/users/'+${user.image}}" alt="User profile picture">
+                                <img class="profile-user-img img-responsive img-circle" th:unless="${user.image ne null}" th:src="@{/assets-admin/images/user2-160x160.jpg}" alt="User profile picture">
+                                <h3 class="profile-username text-center" th:text="${user.fullName}"></h3>
+                                <p class="text-muted text-center">Software Engineer</p>
+                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <b>Followers</b> <a class="pull-right">1,322</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Following</b> <a class="pull-right">543</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Friends</b> <a class="pull-right">13,287</a>
+                                    </li>
+                                </ul>
+                                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                            </div>
+
+                        </div>
+
+
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">About Me</h3>
+                            </div>
+
+                            <div class="box-body">
+                                <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+                                <p class="text-muted">
+                                    Sinh viên năm 5 chuyên ngành Kỹ thuật máy tính viện Kỹ thuật Điện tử - Viễn thông.
+                                    Trường Điện - Điện tử Đại học Bách Khoa Hà Nội.
+                                </p>
+                                <hr>
+                                <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                                <p class="text-muted">Lục Ngạn, Bắc Giang</p>
+                                <hr>
+                                <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                                <p>
+                                    <span class="label label-danger">Java</span>
+                                    <span class="label label-success">Spring Boot</span>
+                                    <span class="label label-info">Thymeleaf</span>
+                                    <span class="label label-warning">MySQL</span>
+                                </p>
+                                <hr>
+                                <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                                <p>Đây là sản phẩm của học phần Đồ Án 3.</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class=""><a href="#activity" data-toggle="tab" aria-expanded="false">Activity</a></li>
+                                <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">Timeline</a></li>
+                                <li class="active"><a href="#settings" data-toggle="tab" aria-expanded="true">Settings</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane" id="activity">
+                                    <ul class="timeline timeline-inverse">
+
+                                        <li class="time-label">
+                                            <span class="bg-red">
+                                                Chưa triển khai
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <div class="tab-pane" id="timeline">
+
+                                    <ul class="timeline timeline-inverse">
+
+                                        <li class="time-label">
+                                            <span class="bg-red">
+                                                Chưa triển khai
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!--Form-->
+                                <div class="tab-pane active" id="settings">
+                                    <form class="form-horizontal" method="post" th:object="${user}" th:action="@{/admin/edit-profile}" enctype="multipart/form-data">
+                                        <input type="hidden" class="form-control" id="id" th:field="${user.id}">
+                                        <input type="hidden" class="form-control" id="image" name="image" th:value="${user.image}">
+                                        <input type="hidden" class="form-control" id="enabled" name="enabled" th:value="${user.enabled}">
+                                        <input type="hidden" class="form-control" id="password" name="password" th:value="${user.password}">
+                                        <input type="hidden" class="form-control" id="username" name="userName" th:value="${user.userName}">
+                                        <div class="form-group">
+                                            <label for="fullName" class="col-sm-2 control-label">Full Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="fullName" placeholder="Full Name" th:field="*{fullName}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class="col-sm-2 control-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address" class="col-sm-2 control-label">Address</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="address" placeholder="Address" th:field="*{address}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phonenumber" class="col-sm-2 control-label">Phone Number</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="phonenumber" placeholder="Phone Number" th:field="*{phoneNumber}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="image" class="col-sm-2 control-label">Image</label>
+                                            <div class="col-sm-10">
+                                                <!--Quan trong: trong Controller se nhan @RequestParam co name="fileImage"  -->
+                                                <input type="file" id="" accept="image/*" name="fileImage">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button href="#" type="submit" class="btn btn-primary pull-right">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer th:replace="~{admin/fragments/footer::footer}"></footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:replace="~{admin/fragments/script::script}"></script>
+</body>
+</html>

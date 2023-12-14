@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/head::head}"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <header th:replace="~{admin/fragments/header::header}"></header>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <div th:replace="~{admin/fragments/sidebar::sidebar}"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Danh sách danh mục
+            </h1>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Default box -->
+            <div class="box">
+                <div class="box-header with-border">
+                    <div>
+                        <div class="box-tools">
+                            <form>
+                                <a class="btn btn-success" href="/admin/add-category">Thêm mới danh mục</a>
+                                <div class="input-group input-group-sm hidden-xs pull-right" style="width: 200px;">
+                                    <input type="text" name="keyword" class="form-control pull-right" placeholder="Search" th:value="${keyword}">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tbody><tr>
+                            <th style="width: 10px">ID</th>
+                            <th>Category Name</th>
+                            <th>Category Status</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr th:each="category:${list}">
+                            <td th:utext="${category.id}"></td>
+                            <td th:utext="${category.categoryName}"></td>
+                            <td>
+                                <span th:if="${category.categoryStatus}" class="label label-success">Hiện</span>
+                                <span th:unless="${category.categoryStatus}" class="label label-danger">Ẩn</span>
+                            </td>
+                            <td>
+                                <a class="btn btn-success" th:href="@{/admin/edit-category/{id}(id=${category.id})}">Edit</a>
+                                <a class="btn btn-danger" onclick="return confirm('Bạn chắc chắn?')" th:href="@{/admin/delete-category/{id}(id=${category.id})}">Delete</a>
+                            </td>
+                        </tr>
+
+                        </tbody></table>
+                </div>
+
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        <li th:if="${currentPage>1}"><a th:href="@{'/admin/category?'+${keyword != null && keyword !='' ? 'keyword='+keyword+'&':''}+'pageNo='+${currentPage -1}}">«</a></li>
+                        <li th:each="i:${#numbers.sequence(1,totalPage)}" th:classappend="${currentPage == i ? 'active':''}"><a th:href="@{'/admin/category?'+${keyword != null && keyword !='' ? 'keyword='+keyword+'&':''}+'pageNo='+${i}}" th:text="${i}"></a></li>
+                        <li th:if="${currentPage < totalPage}"><a th:href="@{'/admin/category?'+${keyword != null && keyword !='' ? 'keyword='+keyword+'&':''}+'pageNo='+${currentPage+1}}">»</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.box -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer th:replace="~{admin/fragments/footer::footer}"></footer>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:replace="~{admin/fragments/script::script}"></script>
+</body>
+</html>

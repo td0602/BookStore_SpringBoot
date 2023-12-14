@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/head::head}"></head>
+<script>
+  // Tự động ẩn thông báo sau 5 giây
+  $(document).ready(function() {
+    setTimeout(function() {
+      $("#successAlert").alert('close');
+      $("#errorAlert").alert('close');
+    }, 5000);
+  });
+</script>
+<body class="hold-transition skin-blue sidebar-mini">
+
+  <div th:if="${successMessage}" id="successAlert" class="alert alert-success text-center" role="alert">
+    <span th:text="${successMessage}"></span>
+  </div>
+
+  <!-- Thông báo lỗi từ mô hình -->
+  <div th:if="${errorMessage}" id="errorAlert" class="alert alert-danger text-center" role="alert">
+    <span th:text="${errorMessage}"></span>
+  </div>
+
+<!-- Site wrapper -->
+<div class="wrapper">
+
+  <header th:replace="~{admin/fragments/header::header}"></header>
+
+  <!-- =============================================== -->
+
+  <!-- Left side column. contains the sidebar -->
+  <div th:replace="~{admin/fragments/sidebar::sidebar}"></div>
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Thêm mới sản phẩm
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+<!--      <div class="col-md-6">-->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title"> Form</h3>
+            </div>
+            <!-- enctype="multipart/form-data" de co the truyen @RequestParam name"fileImage" vao Controller -->
+            <form class="form-horizontal" method="post" th:action="@{/admin/add-book}" th:object="${bookDetails}" enctype="multipart/form-data">
+              <div class="box-body">
+                <input class="form-control" type="hidden" th:value="${customUserDetails.user.id}" id="user.id" name="user.id" />
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Book Name</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" placeholder="" th:field="*{bookName}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">Price</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputPassword3" placeholder="" th:field="${bookDetails.price}">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputPassword4" class="col-sm-2 control-label">Author</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="" th:field="*{author}">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputPassword4" class="col-sm-2 control-label">Category</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" th:field="${bookDetails.category.id}">
+                      <option th:each="category:${categoryList}"
+                              th:value="${category.id}"
+                              th:text="${category.categoryName}">
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputFile" class="col-sm-2 control-label">Image</label>
+                  <div class="col-sm-10">
+                    <!--Quan trong: trong Controller se nhan @RequestParam co name="fileImage"  -->
+                    <input type="file" id="exampleInputFile" accept="image/*" name="fileImage">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="inputPassword4" class="col-sm-2 control-label">Status</label>
+                    <div class="col-sm-10">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="true" checked="" th:field="*{status}">
+                          Active
+                        </label>
+                        <label>
+                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="false" th:field="*{status}">
+                          Hidden
+                        </label>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Description</label>
+                  <div class="col-sm-10">
+                    <!-- Lam the nao de luu tru: dinh dang, image, ... -->
+                    <textarea name="content" id="content" rows="10" cols="80" th:field="*{description}">
+                </textarea>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+              </div>
+
+            </form>
+          </div>
+<!--        </div>-->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer th:replace="~{admin/fragments/footer::footer}"></footer>
+
+</div>
+
+<script th:replace="~{admin/fragments/script::script}"></script>
+</body>
+</html>
