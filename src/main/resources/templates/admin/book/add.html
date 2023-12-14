@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{admin/fragments/head::head}"></head>
-<script>
-  // Tự động ẩn thông báo sau 5 giây
-  $(document).ready(function() {
-    setTimeout(function() {
-      $("#successAlert").alert('close');
-      $("#errorAlert").alert('close');
-    }, 5000);
-  });
-</script>
+
 <body class="hold-transition skin-blue sidebar-mini">
 
-  <div th:if="${successMessage}" id="successAlert" class="alert alert-success text-center" role="alert">
-    <span th:text="${successMessage}"></span>
+  <!--ALERT-->
+  <div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert">
+    <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
+    Success
   </div>
 
-  <!-- Thông báo lỗi từ mô hình -->
-  <div th:if="${errorMessage}" id="errorAlert" class="alert alert-danger text-center" role="alert">
-    <span th:text="${errorMessage}"></span>
+  <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
+    Kiểm tra lại thông tin của sản phẩm!
   </div>
 
 <!-- Site wrapper -->
@@ -127,17 +123,24 @@
 
             </form>
           </div>
-<!--        </div>-->
-
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
   <footer th:replace="~{admin/fragments/footer::footer}"></footer>
-
 </div>
-
 <script th:replace="~{admin/fragments/script::script}"></script>
+
+  <script>
+    // Hiển thị thông báo và tự động đóng
+    $(document).ready(function () {
+      $(".auto-close-alert").each(function () {
+        var timeout = $(this).data("timeout") || 2000; // Thời gian tính bằng mili giây (3 giây mặc định)
+        $(this).fadeIn();
+        var currentAlert = $(this);
+        window.setTimeout(function () {
+          currentAlert.fadeOut();
+        }, timeout);
+      });
+    });
+  </script>
 </body>
 </html>

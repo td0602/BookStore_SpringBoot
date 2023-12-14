@@ -62,33 +62,36 @@ public class BookController {
     // @RequestParam("fileImage") lay theo name file image trong html
     public String add(Model model, @ModelAttribute("bookDetails") BookDetails bookDetails,
                       @RequestParam("fileImage") MultipartFile fileImage) {
-        String MyMessage = null;
+        String myMessage = null;
         storageService.storeBookImage(fileImage);
         bookDetails.setImage(fileImage.getOriginalFilename());
         if(bookService.create(bookDetails)) {
-            MyMessage = "Thêm thành công!";
-            model.addAttribute("successMessage", MyMessage);
+            myMessage = "Thêm mới thành công!";
+            model.addAttribute("successMessage", myMessage);
             model.addAttribute("bookDetails", new BookDetails());
-            return "/admin/book/add";
+            return "admin/book/add";
+        } else {
+            myMessage = "Thêm mới thất bại!";
+            model.addAttribute("errorMessage", myMessage);
         }
-        MyMessage = "Thêm mới thất bại!";
-        model.addAttribute("errorMessage", MyMessage);
         return "admin/book/add";
     }
 
     @GetMapping("/edit-book/{id}")
     public String viewEdit(Model model, @PathVariable("id") Long id) {
-        List<Category> categoryList = categoryService.getAll();
+//        List<Category> categoryList = categoryService.getAll();
         BookDetails bookDetails = bookService.findById(id);
 //        model.addAttribute("customUserDetails", customUserDetails);
-        model.addAttribute("categoryList",categoryList);
+//        model.addAttribute("categoryList",categoryList);
         model.addAttribute("bookDetails", bookDetails);
         return "admin/book/edit";
     }
 
-    @PostMapping("/edit-book")
-    public String edit(@ModelAttribute("bookDetails") BookDetails bookDetails, @RequestParam("fileImage") MultipartFile fileImage) {
-
+    @PostMapping("/edit-book/{id}")
+    public String edit(Model model,
+                       @ModelAttribute("bookDetails") BookDetails bookDetails,
+                       @RequestParam("fileImage") MultipartFile fileImage) {
+        String myMessage = null;
         try {
             storageService.storeBookImage(fileImage);
             String fileName = fileImage.getOriginalFilename();
@@ -99,8 +102,12 @@ public class BookController {
             e.printStackTrace();
         }
         if(bookService.update(bookDetails)) {
-            return "redirect:/admin/books";
+            myMessage = "Cập nhật thành công!";
+            model.addAttribute("successMessage", myMessage);
+            return "admin/index";
         }
+        myMessage = "Cập nhật thất bại!";
+        model.addAttribute("errorMessage", myMessage);
         return "redirect:/admin/edit-book/"+ bookDetails.getId();
     }
 

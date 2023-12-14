@@ -37,7 +37,10 @@ public class AdminController {
     }
 
     @PostMapping("/admin/edit-profile")
-    public String editProfile(@ModelAttribute("user") User user, @RequestParam("fileImage")MultipartFile fileImage) {
+    public String editProfile(Model model,
+                              @ModelAttribute("user") User user,
+                              @RequestParam("fileImage")MultipartFile fileImage) {
+        String myMessage = null;
         storageService.storeUserImage(fileImage);
         String fileName = fileImage.getOriginalFilename();
         if(fileName != null) {
@@ -46,8 +49,12 @@ public class AdminController {
             }
         }
         if(userService.edit(user)) {
-            return "redirect:/admin/profile";
+            myMessage = "Cập nhật thành công!";
+            model.addAttribute("successMessage", myMessage);
+            return "admin/index";
         }
-        return "redirect:/admin/profile";
+        myMessage = "Cập nhật thất bại!";
+        model.addAttribute("errorMessage", myMessage);
+        return "admin/profile";
     }
 }

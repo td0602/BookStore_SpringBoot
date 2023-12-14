@@ -42,10 +42,18 @@ public class CategoryController {
     }
 
     @PostMapping("/add-category")
-    public String add(@ModelAttribute("category") Category category) {
+    public String add(Model model, @ModelAttribute("category") Category category) {
+        String myMessage = null;
         if(categoryService.create(category)) {
-            return "redirect:/admin/category";
+            myMessage = "Thêm mới thành công!";
+            model.addAttribute("successMessage", myMessage);
+            Category newCategory = new Category();
+            newCategory.setCategoryStatus(true);
+            model.addAttribute("category", newCategory);
+            return "admin/category/add";
         }
+        myMessage = "Thêm mới thất bại";
+        model.addAttribute("errorMessage", myMessage);
         return "admin/category/add";
     }
 
@@ -57,18 +65,25 @@ public class CategoryController {
     }
 
     @PostMapping("/edit-category")
-    public String edit(@ModelAttribute("category") Category category) {
+    public String edit(Model model, @ModelAttribute("category") Category category) {
+        String myMessage = null;
         if(categoryService.update(category)) {
-            return "redirect:/admin/category";
+            myMessage = "Cập nhật thành công!";
+            model.addAttribute("successMessage", myMessage);
+            return "admin/category/edit";
         }
+        myMessage = "Cập nhật thất bại!";
         return "admin/category/edit";
     }
 
     @GetMapping("/delete-category/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    public String delete(Model model, @PathVariable("id") Long id) {
+        String myMessage = null;
         if(categoryService.delete(id)) {
             return "redirect:/admin/category";
         }
-        return "admin/category/index";
+        myMessage = "Xóa thất bại!";
+        model.addAttribute("errorMessage", myMessage);
+        return "admin/index";
     }
 }

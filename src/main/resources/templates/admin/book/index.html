@@ -2,6 +2,20 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{admin/fragments/head::head}"></head>
 <body class="hold-transition skin-blue sidebar-mini">
+
+<!--ALERT-->
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert">
+  <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
+  Success
+</div>
+
+<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
+  Kiểm tra lại thông tin của sản phẩm!
+</div>
+
 <!-- Site wrapper -->
 <div class="wrapper">
 
