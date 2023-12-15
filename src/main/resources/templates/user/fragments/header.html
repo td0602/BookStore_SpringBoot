@@ -13,11 +13,14 @@
           <ul class="meninmenu d-flex justify-content-start">
             <li class="drop with--one--item"><a href="/home">Home</a></li>
             <li class="drop"><a href="shop-grid.html">Books</a>
-              <div class="megamenu mega03">
-                <ul class="item item03">
+              <div class="megamenu mega02">
+                <ul class="item item01">
                   <li class="title">Categories</li>
-                  <li th:each="category:${categoryList}"><a href="shop-grid.html" th:text="${category.categoryName}"> </a></li>
+                  <div class="two-column-list m-lg-4">
+                    <li th:each="category:${categoryList}"><a href="shop-grid.html" th:text="${category.categoryName}"> </a></li>
+                  </div>
                 </ul>
+              </div>
             </li>
             <li class="drop"><a href="shop-grid.html">Kids</a>
               <div class="megamenu mega02">
@@ -43,21 +46,7 @@
               <div class="megamenu dropdown">
                 <ul class="item item01">
                   <li><a href="about.html">About Page</a></li>
-                  <li class="label2"><a href="portfolio.html">Portfolio</a>
-                    <ul>
-                      <li><a href="portfolio.html">Portfolio</a></li>
-                      <li><a href="portfolio-three-column.html">Portfolio 3 Column</a>
-                      </li>
-                      <li><a href="portfolio-details.html">Portfolio Details</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="my-account.html">My Account</a></li>
-                  <li><a href="cart.html">Cart Page</a></li>
                   <li><a href="checkout.html">Checkout Page</a></li>
-                  <li><a href="wishlist.html">Wishlist Page</a></li>
-                  <li><a href="error404.html">404 Page</a></li>
-                  <li><a href="faq.html">Faq Page</a></li>
-                  <li><a href="team.html">Team Page</a></li>
                 </ul>
               </div>
             </li>
@@ -183,6 +172,7 @@
         </ul>
       </div>
     </div>
+
     <!-- Start Mobile Menu -->
     <div class="row d-none">
       <div class="col-lg-12 d-none">

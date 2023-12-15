@@ -1,8 +1,10 @@
-package com.example.ebookapp.controller.admin;
+package com.example.ebookapp.controller;
 
+import com.example.ebookapp.model.BookDetails;
 import com.example.ebookapp.model.Category;
 import com.example.ebookapp.model.CustomUserDetails;
 import com.example.ebookapp.model.User;
+import com.example.ebookapp.service.BookService;
 import com.example.ebookapp.service.CategoryService;
 import com.example.ebookapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class CommonAttributeController {
 //    private UserService userService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private BookService bookService;
 
     @ModelAttribute
     public void addCommonAtributes(Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
@@ -26,10 +30,4 @@ public class CommonAttributeController {
         model.addAttribute("customUserDetails", customUserDetails);
         model.addAttribute("categoryList", categoryList);
     }
-
-//    @ModelAttribute("/load-categorys")
-//    public void loadCategory(Model model) {
-//        List<Category> categoryList = categoryService.getAll();
-//        model.addAttribute("categoryList", categoryList);
-//    }
 }
