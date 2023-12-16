@@ -38,7 +38,7 @@
         <div class="col-lg-12">
           <div class="section-wrap">
             <div class="section__title-2">
-              <h2 class="title__be--2">New <span class="color--theme">Products</span></h2>
+              <h2 class="title__be--2">NEW <span class="color--theme">BOOKS</span></h2>
             </div>
             <div class="custom-nav">
               <button type="button" class="customPrevBtn"><i
@@ -54,6 +54,8 @@
               <div class="product__thumb">
                 <a class="first__img" href="single-product.html"><img th:src="@{'/uploads/books/'+${book.image}}"
                                                                       alt="product image" width="150" height="350"></a>
+                <a class="second__img animation1" href="single-product.html"><img
+                        th:src="@{/assets-user/images/books/bookdetail.jpg}" alt="product image" width="150" height="350">></a>
                 <div class="hot__box">
                   <span class="hot-label">BEST SALLER</span>
                 </div>
@@ -104,7 +106,7 @@
         <div class="col-lg-12">
           <div class="product-section_area d-flex justify-content-between">
             <div class="section__title">
-              <h2 class="title__be--2">All <span class="color--theme">Products</span></h2>
+              <h2 class="title__be--2">All <span class="color--theme">Books</span></h2>
             </div>
             <div class="product__nav nav d-block" role="tablist">
               <a class="nav-item nav-link active" data-bs-toggle="tab" href="#nav-all" role="tab">ALL</a>
@@ -130,6 +132,8 @@
                   <div class="product__thumb">
                     <a class="first__img" href="single-product.html"><img
                             th:src="@{'/uploads/books/'+${book1.image}}" alt="product image" width="150" height="350"></a>
+                    <a class="second__img animation1" href="single-product.html"><img
+                            th:src="@{/assets-user/images/books/bookdetail.jpg}" alt="product image" width="150" height="350"></a>
                     <div class="hot__box">
                       <span class="hot-label">BEST SALER</span>
                     </div>
@@ -140,15 +144,13 @@
                       <li>$<span th:text="${book1.price}"></span></li>
                       <li class="old_price">$<span th:text="${book1.price*2}"></span></li>
                     </ul>
-                    <div class="action">
+                    <div class="action hot__box">
                       <div class="actions_inner">
                         <ul class="add_to_links">
                           <li><a class="cart" href="cart.html"><i
                                   class="bi bi-shopping-bag4"></i></a></li>
                           <li><a class="wishlist" href="wishlist.html"><i
                                   class="bi bi-shopping-cart-full"></i></a></li>
-                          <li><a class="compare" href="#"><i
-                                  class="bi bi-heart-beat"></i></a></li>
                           <li><a data-bs-toggle="modal" title="Quick View"
                                  class="quickview modal-view detail-link"
                                  href="#productmodal"><i class="bi bi-search"></i></a>
@@ -169,11 +171,14 @@
                 </div>
               </div>
 
+              <!-- Start Single Product -->
               <div class="single__product__inner" th:if="${index+1 <= allBooks.size()-1}" th:with="book2=${allBooks[__${index+1}__]}">
                 <div class="product product__style--3">
                   <div class="product__thumb">
                     <a class="first__img" href="single-product.html"><img
                             th:src="@{'/uploads/books/'+${book2.image}}" alt="product image" width="150" height="350"></a>
+                    <a class="second__img animation1" href="single-product.html"><img
+                            th:src="@{/assets-user/images/books/bookdetail.jpg}" alt="product image" width="150" height="350">></a>
                     <div class="hot__box">
                       <span class="hot-label">BEST SALER</span>
                     </div>
@@ -191,8 +196,6 @@
                                   class="bi bi-shopping-bag4"></i></a></li>
                           <li><a class="wishlist" href="wishlist.html"><i
                                   class="bi bi-shopping-cart-full"></i></a></li>
-                          <li><a class="compare" href="#"><i
-                                  class="bi bi-heart-beat"></i></a></li>
                           <li><a data-bs-toggle="modal" title="Quick View"
                                  class="quickview modal-view detail-link"
                                  href="#productmodal"><i class="bi bi-search"></i></a>
@@ -213,57 +216,11 @@
                 </div>
               </div>
               <!-- Start Single Product -->
-              <!-- Start Single Product -->
-<!--              <div class="single__product__inner" th:with="book2=${allBooks[__${index + 1}__]}">-->
-<!--                <div class="product product__style&#45;&#45;3">-->
-<!--                  <div class="product__thumb">-->
-<!--                    <a class="first__img" href="single-product.html"><img-->
-<!--                            th:src="@{'/uploads/books/'+${book2.image}}" alt="product image" width="150" height="350"></a>-->
-
-<!--                    <div class="hot__box">-->
-<!--                      <span class="hot-label">BEST SALER</span>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="product__content content&#45;&#45;center content&#45;&#45;center">-->
-<!--                    <h4><a href="single-product.html" th:text="${book2.bookName}"></a></h4>-->
-<!--                    <ul class="price d-flex">-->
-<!--                      <li>$<span th:text="${book2.price}"></span></li>-->
-<!--                      <li class="old_price">$<span th:text="${book2.price*2}"></span></li>-->
-<!--                    </ul>-->
-<!--                    <div class="action">-->
-<!--                      <div class="actions_inner">-->
-<!--                        <ul class="add_to_links">-->
-<!--                          <li><a class="cart" href="cart.html"><i-->
-<!--                                  class="bi bi-shopping-bag4"></i></a></li>-->
-<!--                          <li><a class="wishlist" href="wishlist.html"><i-->
-<!--                                  class="bi bi-shopping-cart-full"></i></a></li>-->
-<!--                          <li><a class="compare" href="#"><i-->
-<!--                                  class="bi bi-heart-beat"></i></a></li>-->
-<!--                          <li><a data-bs-toggle="modal" title="Quick View"-->
-<!--                                 class="quickview modal-view detail-link"-->
-<!--                                 href="#productmodal"><i class="bi bi-search"></i></a>-->
-<!--                          </li>-->
-<!--                        </ul>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="product__hover&#45;&#45;content">-->
-<!--                      <ul class="rating d-flex">-->
-<!--                        <li class="on"><i class="fa fa-star-o"></i></li>-->
-<!--                        <li class="on"><i class="fa fa-star-o"></i></li>-->
-<!--                        <li class="on"><i class="fa fa-star-o"></i></li>-->
-<!--                        <li><i class="fa fa-star-o"></i></li>-->
-<!--                        <li><i class="fa fa-star-o"></i></li>-->
-<!--                      </ul>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-              <!-- Start Single Product -->
             </div>
-          </div>
         </div>
         <!-- End Single Tab Content -->
       </div>
+    </div>
     </div>
   </section>
   <!-- Start BEst Seller Area -->

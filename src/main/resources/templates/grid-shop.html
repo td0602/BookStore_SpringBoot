@@ -1,0 +1,180 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{/user/fragments/head::head}"></head>
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+
+    <div class="backgr" th:replace="~{/user/fragments/header::header}"></div>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div th:replace="~{/user/fragments/search::search}"></div>
+    <!-- End Search Popup -->
+    <!-- Start breadcrumb area -->
+    <div class="ht__breadcrumb__area bg-image--1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__inner text-center">
+                        <h2 class="breadcrumb-title text-black">Shop Grid</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcrumb area -->
+    <!-- Start Shop Page -->
+    <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-12 order-2 order-lg-1 md-mt-40 sm-mt-40">
+                    <div class="shop__sidebar">
+                        <aside class="widget__categories products--cat">
+                            <h3 class="widget__title">Book Categories</h3>
+                            <ul>
+                                <li th:each="category:${categoryList}"><a th:href="@{'/grid-shop?categoryId='+${category.id}}" th:text="${category.categoryName}"> <span>(3)</span></a></li>
+
+                            </ul>
+                        </aside>
+                        <aside class="widget__categories pro--range">
+                            <h3 class="widget__title">Filter by price</h3>
+                            <div class="content-shopby">
+                                <div class="price_filter s-filter clear">
+                                    <form action="#" method="GET">
+                                        <div id="slider-range"></div>
+                                        <div class="slider__range--output">
+                                            <div class="price__output--wrap">
+                                                <div class="price--output">
+                                                    <span>Price :</span><input type="text" id="amount" readonly="">
+                                                </div>
+                                                <div class="price--filter">
+                                                    <a href="#">Filter</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </aside>
+                        <aside class="widget__categories sidebar--banner">
+                            <img th:src="@{/assets-user/images/others/banner_left.jpg}" alt="banner images">
+                            <div class="text">
+                                <h2>new products</h2>
+                                <h6>save up to <br> <strong>40%</strong>off</h6>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-12 order-1 order-lg-2">
+                    <div class="row">
+                        <div class="col-lg-12 pull-right">
+                            <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
+                                <div class="orderby__wrapper">
+                                    <span>Sort By</span>
+                                    <select class="shot__byselect">
+                                        <option>Increasing Price</option>
+                                        <option>Decreasing Price</option>
+                                    </select>
+                                </div>
+
+                                <form>
+                                    <div class="box-tools pull-right margin-bottom">
+                                        <div class="input-group input-group-sm hidden-xs" style="width: 200px;">
+                                            <input type="text" name="keyword" class="form-control pull-right" placeholder="Search" th:value="${keyword}">
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab__container tab-content">
+                        <div class="shop-grid tab-pane fade show active" id="nav-grid" role="tabpanel">
+                            <div class="row">
+                                <!-- Start Single Product -->
+                                <div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12" th:each="book:${bookList}">
+                                    <div class="product__thumb">
+                                        <a class="first__img" href="single-product.html"><img
+                                                th:src="@{'/uploads/books/'+${book.image}}" alt="product image" width="150" height="350"></a>
+                                        <a class="second__img animation1" href="single-product.html"><img
+                                                th:src="@{/assets-user/images/books/bookdetail.jpg}" alt="product image"></a>
+                                        <div class="hot__box">
+                                            <span class="hot-label">BEST SALLER</span>
+                                        </div>
+                                    </div>
+                                    <div class="product__content content--center">
+                                        <h4><a href="single-product.html" th:text="${book.bookName}"></a></h4>
+                                        <ul class="price d-flex">
+                                            <li>$<span th:text="${book.price}"></span></li>
+                                            <li class="old_price">$<span th:text="${book.price*2}"></span></li>
+                                        </ul>
+                                        <div class="action">
+                                            <div class="actions_inner">
+                                                <ul class="add_to_links">
+                                                    <li><a class="cart" href="cart.html"><i
+                                                            class="bi bi-shopping-bag4"></i></a></li>
+                                                    <li><a class="wishlist" href="wishlist.html"><i
+                                                            class="bi bi-shopping-cart-full"></i></a></li>
+                                                    <li><a data-bs-toggle="modal" title="Quick View"
+                                                           class="quickview modal-view detail-link"
+                                                           href="#productmodal"><i class="bi bi-search"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="product__hover--content">
+                                            <ul class="rating d-flex">
+                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Product -->
+                            </div>
+                            <ul class="wn__pagination">
+                                <li th:if="${currentPage > 1}">
+                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${currentPage -1}}"><i class="zmdi zmdi-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li th:each="i:${#numbers.sequence(1,totalPage)}" th:classappend="${currentPage==i?'active':''}">
+                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${i}}" th:text="${i}"></a>
+                                </li>
+                                <li th:if="${currentPage < totalPage}">
+                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${currentPage+1}}"><i class="zmdi zmdi-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Shop Page -->
+    <!-- Footer Area -->
+    <footer th:replace="~{/user/fragments/footer::footer}"></footer>
+    <!-- //Footer Area -->
+    <!-- QUICKVIEW PRODUCT -->
+    <div th:replace="~{user/fragments/quickview::quickview}"></div>
+    <!-- END QUICKVIEW PRODUCT -->
+</div>
+<!-- //Main wrapper -->
+
+<!-- JS Files -->
+<script th:replace="~{/user/fragments/script::script}"></script>
+
+</body>
+</html>

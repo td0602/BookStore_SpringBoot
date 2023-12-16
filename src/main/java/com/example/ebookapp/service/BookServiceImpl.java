@@ -70,7 +70,7 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Page<BookDetails> getAll(Integer pageNo) {
-        Pageable pageable = PageRequest.of(pageNo-1, 2);
+        Pageable pageable = PageRequest.of(pageNo-1, 9);
         return bookRepository.findAll(pageable);
     }
 
