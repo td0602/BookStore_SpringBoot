@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -38,4 +40,10 @@ public class BookDetails {
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
+
+    @OneToMany(mappedBy = "book")
+    private Set<Cart> carts;
+
+    @OneToMany(mappedBy = "book")
+    private Set<BookOrder> bookOrders;
 }

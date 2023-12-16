@@ -68,7 +68,9 @@
                                         <span th:text="'$'+${book.price}"></span>
                                     </div>
                                     <div class="product__overview">
-                                        <p></p>
+                                        <p>*** QUYỀN LỢI KHI MUA HÀNG:</p>
+                                        <p>- Sản phẩm được đổi trả trong vòng 15 ngày với bất kỳ lỗi nào từ nhà sản xuất.</p>
+                                        <p>- Lần mua tiếp theo sẽ được khuyến mãi 5%.</p>
                                     </div>
                                     <div class="box-tocart d-flex">
                                         <span>Qty</span>
@@ -209,7 +211,7 @@
                         <aside class="widget__categories products--cat">
                             <h3 class="widget__title">Book Categories</h3>
                             <ul>
-                                <li th:each="category:${categoryList}"><a th:href="@{'/grid-shop?categoryId='+${category.id}}" th:text="${category.categoryName}"> <span>(3)</span></a></li>
+                                <li th:each="category:${categoryList}"><a th:href="@{'/grid-shop?categoryId='+${category.id}}" th:text="${category.categoryName}"></a></li>
                             </ul>
                         </aside>
                         <aside class="widget__categories sidebar--banner">
