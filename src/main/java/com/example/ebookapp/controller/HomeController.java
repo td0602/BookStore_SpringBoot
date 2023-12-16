@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,5 +48,11 @@ public class HomeController {
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("bookList", list);
         return "grid-shop";
+    }
+    @GetMapping("/single-book/{id}")
+    public String singleBoook(Model model, @PathVariable("id") Long id) {
+        BookDetails book = bookService.findById(id);
+        model.addAttribute("book", book);
+        return "/single-book";
     }
 }

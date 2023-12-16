@@ -20,11 +20,6 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailService customUserDetailService;
 
-    // Ma hoa password
-//    @Bean
-//    BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -34,10 +29,11 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.csrf(csrf -> csrf.disable()).authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/*").permitAll()
+//                .requestMatchers("/*").permitAll()
                 .requestMatchers("/user/**").hasAuthority("USER")
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated() // Tat ca cac URL khac phai authentication
+//                .anyRequest().authenticated() // Tat ca cac URL khac phai authentication
+                .anyRequest().permitAll()
         ).formLogin(login -> login //Authentication by login by url: /logon
                 .loginPage("/logon") //trang de login
                 .loginProcessingUrl("/logon") // auto khop

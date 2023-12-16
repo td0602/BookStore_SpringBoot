@@ -17,7 +17,7 @@
                 <ul class="item item01">
                   <li class="title">Categories</li>
                   <div class="two-column-list m-lg-4">
-                    <li th:each="category:${categoryList}"><a href="shop-grid.html" th:text="${category.categoryName}"> </a></li>
+                    <li th:each="category:${categoryList}"><a th:href="@{'/grid-shop?categoryId='+${category.id}}" th:text="${category.categoryName}"> </a></li>
                   </div>
                 </ul>
               </div>
@@ -212,7 +212,7 @@
                 <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
                 <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
                 <li><a href="shop-no-sidebar.html">Shop No sidebar</a></li>
-                <li><a href="single-product.html">Single Product</a></li>
+                <li><a href="../../single-book.html">Single Product</a></li>
               </ul>
             </li>
             <li><a href="blog.html">Blog</a>

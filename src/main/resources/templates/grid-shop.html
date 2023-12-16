@@ -1,6 +1,9 @@
 <!doctype html>
 <html class="no-js" lang="zxx" xmlns:th="https://www.thymeleaf.org">
 
+<head>
+    <title>Grid-Shop | Books Library eCommerce Store</title>
+</head>
 <head th:replace="~{/user/fragments/head::head}"></head>
 <body>
 <!--[if lte IE 9]>
@@ -66,7 +69,7 @@
                             <img th:src="@{/assets-user/images/others/banner_left.jpg}" alt="banner images">
                             <div class="text">
                                 <h2>new products</h2>
-                                <h6>save up to <br> <strong>40%</strong>off</h6>
+                                <h6>save up to <br> <strong>50%</strong> off</h6>
                             </div>
                         </aside>
                     </div>
@@ -105,7 +108,7 @@
                                     <div class="product__thumb">
                                         <a class="first__img" href="single-product.html"><img
                                                 th:src="@{'/uploads/books/'+${book.image}}" alt="product image" width="150" height="350"></a>
-                                        <a class="second__img animation1" href="single-product.html"><img
+                                        <a class="second__img animation1" th:href="@{/single-book/{id}(id=${book.id})}"><img
                                                 th:src="@{/assets-user/images/books/bookdetail.jpg}" alt="product image"></a>
                                         <div class="hot__box">
                                             <span class="hot-label">BEST SALLER</span>

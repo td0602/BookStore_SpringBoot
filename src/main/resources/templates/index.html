@@ -52,9 +52,9 @@
             <!-- Start Single Product -->
             <div class="product product__style--3" th:each="book:${newBooks}">
               <div class="product__thumb">
-                <a class="first__img" href="single-product.html"><img th:src="@{'/uploads/books/'+${book.image}}"
+                <a class="first__img" th:href="@{'/single-book/'+${book.id}}"><img th:src="@{'/uploads/books/'+${book.image}}"
                                                                       alt="product image" width="150" height="350"></a>
-                <a class="second__img animation1" href="single-product.html"><img
+                <a class="second__img animation1" th:href="@{'/single-book/'+${book.id}}"><img
                         th:src="@{/assets-user/images/books/bookdetail.jpg}" alt="product image" width="150" height="350">></a>
                 <div class="hot__box">
                   <span class="hot-label">BEST SALLER</span>
@@ -132,7 +132,7 @@
                   <div class="product__thumb">
                     <a class="first__img" href="single-product.html"><img
                             th:src="@{'/uploads/books/'+${book1.image}}" alt="product image" width="150" height="350"></a>
-                    <a class="second__img animation1" href="single-product.html"><img
+                    <a class="second__img animation1" th:href="@{'/single-book/'+${book1.id}}"><img
                             th:src="@{/assets-user/images/books/bookdetail.jpg}" alt="product image" width="150" height="350"></a>
                     <div class="hot__box">
                       <span class="hot-label">BEST SALER</span>
@@ -177,7 +177,7 @@
                   <div class="product__thumb">
                     <a class="first__img" href="single-product.html"><img
                             th:src="@{'/uploads/books/'+${book2.image}}" alt="product image" width="150" height="350"></a>
-                    <a class="second__img animation1" href="single-product.html"><img
+                    <a class="second__img animation1" th:href="@{'/single-book/'+${book2.id}}"><img
                             th:src="@{/assets-user/images/books/bookdetail.jpg}" alt="product image" width="150" height="350">></a>
                     <div class="hot__box">
                       <span class="hot-label">BEST SALER</span>
