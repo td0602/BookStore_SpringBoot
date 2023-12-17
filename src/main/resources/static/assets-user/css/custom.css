@@ -26,3 +26,7 @@
     --bs-gutter-x: 30px;
   }
 
+.translateZ-3 {
+    transform: translateZ(1000px); /* Thay đổi giá trị theo nhu cầu */
+}
+

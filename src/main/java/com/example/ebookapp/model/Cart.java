@@ -20,8 +20,8 @@ public class Cart {
 
     @Column(name = "bookName")
     private String bookName;
-    @Column(name = "quanity")
-    private Long quanity;
+    @Column(name = "quantity")
+    private Long quantity;
     @Column(name = "image")
     private String image;
     @Column(name = "price")
@@ -34,4 +34,12 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "bookId", referencedColumnName = "id")
     private BookDetails book;
+
+    public Cart(BookDetails book) {
+        this.quantity = 1L;
+        this.book = book;
+        this.bookName = book.getBookName();
+        this.price = book.getPrice();
+        this.image = book.getImage();
+    }
 }

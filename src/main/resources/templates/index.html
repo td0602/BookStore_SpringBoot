@@ -7,15 +7,18 @@
 
 <body>
 
-  <!-- Thông báo thành công từ mô hình -->
-  <div th:if="${successMessage}" id="successAlert" class="alert alert-success text-center" role="alert">
-    <span th:text="${successMessage}"></span>
-  </div>
+<!--ALERT-->
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert translateZ-3">
+<!--  <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>-->
+  <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
+  Success
+</div>
 
-  <!-- Thông báo lỗi từ mô hình -->
-  <div th:if="${errorMessage}" id="errorAlert" class="alert alert-danger text-center" role="alert">
-    <span th:text="${errorMessage}"></span>
-  </div>
+<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
+  !
+</div>
 
 <!-- Main wrapper -->
 <div class="wrapper" id="wrapper">
@@ -71,7 +74,7 @@
                     <ul class="add_to_links">
                       <li><a class="cart" href="cart.html"><i
                               class="bi bi-shopping-bag4"></i></a></li>
-                      <li><a class="wishlist" href="wishlist.html"><i
+                      <li><a th:href="@{/user/add-cart/{bookId}(bookId=${book.id})}"><i
                               class="bi bi-shopping-cart-full"></i></a></li>
                       <li><a data-bs-toggle="modal" title="Quick View"
                              class="quickview modal-view detail-link"
@@ -149,7 +152,7 @@
                         <ul class="add_to_links">
                           <li><a class="cart" href="cart.html"><i
                                   class="bi bi-shopping-bag4"></i></a></li>
-                          <li><a class="wishlist" href="wishlist.html"><i
+                          <li><a class="wishlist" th:href="@{/user/add-cart/{bookId}(bookId=${book1.id})}"><i
                                   class="bi bi-shopping-cart-full"></i></a></li>
                           <li><a data-bs-toggle="modal" title="Quick View"
                                  class="quickview modal-view detail-link"
@@ -194,7 +197,7 @@
                         <ul class="add_to_links">
                           <li><a class="cart" href="cart.html"><i
                                   class="bi bi-shopping-bag4"></i></a></li>
-                          <li><a class="wishlist" href="wishlist.html"><i
+                          <li><a class="wishlist" th:href="@{/user/add-cart/{bookId}(bookId=${book2.id})}"><i
                                   class="bi bi-shopping-cart-full"></i></a></li>
                           <li><a data-bs-toggle="modal" title="Quick View"
                                  class="quickview modal-view detail-link"
@@ -235,16 +238,6 @@
 
 <!-- JS Files -->
 <div th:replace="~{/user/fragments/script::script}"></div>
-
-  <script>
-    // Tự động ẩn thông báo sau 5 giây
-    $(document).ready(function() {
-      setTimeout(function() {
-        $("#successAlert").alert('close');
-        $("#errorAlert").alert('close');
-      }, 5000);
-    });
-  </script>
 
 </body>
 </html>

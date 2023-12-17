@@ -46,6 +46,6 @@ public class UserController {
 
     @GetMapping("/user/home")
     public String userHome() {
-        return "index";
+        return "redirect:/home";
     }
 }

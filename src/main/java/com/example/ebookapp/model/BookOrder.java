@@ -18,8 +18,8 @@ public class BookOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "quanity")
-    private Long quanity;
+    @Column(name = "quantity")
+    private Long quantity;
     @Column(name = "price")
     private Double price;
     @Column(name = "bookName")

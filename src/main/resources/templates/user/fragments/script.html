@@ -4,4 +4,114 @@
     <script th:src="@{/assets-user/js/vendor/bootstrap.min.js}"></script>
     <script th:src="@{/assets-user/js/plugins.js}"></script>
     <script th:src="@{/assets-user/js/active.js}"></script>
+
+    <script>
+        // Hiển thị thông báo và tự động đóng
+        $(document).ready(function () {
+            $(".auto-close-alert").each(function () {
+                var timeout = $(this).data("timeout") || 2000; // Thời gian tính bằng mili giây (3 giây mặc định)
+                $(this).fadeIn();
+                var currentAlert = $(this);
+                window.setTimeout(function () {
+                    currentAlert.fadeOut();
+                }, timeout);
+            });
+        });
+    </script>
+
+<!--    <script th:inline="javascript">-->
+<!--        /* Dùng jQuery hoặc JavaScript thuần để xử lý sự kiện thay đổi quantity */-->
+<!--        $(document).ready(function() {-->
+<!--            $('.quantity-input').on('input', function() {-->
+<!--                var cartId = $(this).attr('id').replace('quantity', '');-->
+<!--                console.log(cartId);-->
+<!--                updateSubtotal(cartId);-->
+<!--            });-->
+
+<!--            function updateSubtotal(cartId) {-->
+<!--                var quantity = $('#quantity' + cartId).val();-->
+<!--                var price = $('#price' + cartId).text(); // Lấy giá trị từ span có th:id là 'price'+cartId-->
+<!--                var subtotal = quantity * price;-->
+<!--                console.log(quantity);-->
+<!--                console.log(price);-->
+<!--                $('#result' + cartId).text(subtotal);-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
+
+<!--    <script th:inline="javascript">-->
+<!--        $(document).ready(function() {-->
+<!--            // Xử lý sự kiện thay đổi quantity-->
+<!--            $('.quantity-input').on('input', function() {-->
+<!--                var cartId = $(this).attr('id').replace('quantity', '');-->
+<!--                updateSubtotal(cartId);-->
+<!--                updateTotalSubtotal();-->
+<!--            });-->
+
+<!--            // Hàm cập nhật giá trị subtotal của một sản phẩm-->
+<!--            function updateSubtotal(cartId) {-->
+<!--                var quantity = $('#quantity' + cartId).val();-->
+<!--                var price = $('#price' + cartId).text();-->
+<!--                var subtotal = quantity * price;-->
+<!--                $('#result' + cartId).text(subtotal);-->
+<!--            }-->
+
+<!--            // Hàm cập nhật tổng giá trị subtotal-->
+<!--            function updateTotalSubtotal() {-->
+<!--                var totalSubtotal = 0;-->
+
+<!--                // Duyệt qua các hàng trong bảng-->
+<!--                $('tr').each(function() {-->
+<!--                    var cartId = $(this).find('.quantity-input').attr('id').replace('quantity', '');-->
+<!--                    var subtotal = parseFloat($('#result' + cartId).text()) || 0; // Đảm bảo lấy giá trị số-->
+
+<!--                    totalSubtotal += subtotal;-->
+<!--                });-->
+
+<!--                // Hiển thị tổng giá trị subtotal trong thẻ span-->
+<!--                $('#totalSubtotal').text('Total Subtotal: $' + totalSubtotal.toFixed(2));-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
+
+    //Hàm cập nhật giá trị cho giỏ hàng
+    <script th:inline="javascript">
+        $(document).ready(function() {
+
+            // Gọi hàm updateTotalSubtotal khi trang được tải
+            updateTotalSubtotal();
+            // Xử lý sự kiện thay đổi quantity
+            $('.quantity-input').on('input', function() {
+                var cartId = $(this).attr('id').replace('quantity', '');
+                updateSubtotal(cartId);
+                updateTotalSubtotal();
+            });
+
+            // Hàm cập nhật giá trị subtotal của một sản phẩm
+            function updateSubtotal(cartId) {
+                var quantity = $('#quantity' + cartId).val();
+                var price = $('#price' + cartId).text();
+                var subtotal = quantity * price;
+                $('#result' + cartId).text(subtotal);
+            }
+
+            // Hàm cập nhật tổng giá trị subtotal
+            function updateTotalSubtotal() {
+                var totalSubtotal = 0;
+
+                // Duyệt qua các hàng trong tbody trừ hàng cuối cùng (Grand Total)
+                $('tbody tr:not(.title-top)').each(function() {
+                    var cartId = $(this).find('.quantity-input').attr('id').replace('quantity', '');
+                    var subtotal = parseFloat($('#result' + cartId).text()) || 0; // Đảm bảo lấy giá trị số
+
+                    totalSubtotal += subtotal;
+
+                });
+                var grandTotal = totalSubtotal + 70;
+                // Hiển thị tổng giá trị subtotal trong thẻ span
+                $('#cartTotal').text('$' + totalSubtotal.toFixed(2));
+                $('#grandTotal').text('$' + grandTotal);
+            }
+        });
+    </script>
 </div>
