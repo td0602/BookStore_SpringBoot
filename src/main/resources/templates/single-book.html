@@ -72,16 +72,20 @@
                                         <p>- Sản phẩm được đổi trả trong vòng 15 ngày với bất kỳ lỗi nào từ nhà sản xuất.</p>
                                         <p>- Lần mua tiếp theo sẽ được khuyến mãi 5%.</p>
                                     </div>
-                                    <div class="box-tocart d-flex">
-                                        <span>Qty</span>
-                                        <input id="qty" class="input-text qty" name="qty" min="1" value="1"
-                                               title="Qty" type="number">
-                                        <div class="addtocart__actions">
-                                            <button class="tocart" type="submit" title="Add to Cart">Add to
-                                                Cart
-                                            </button>
+                                    <form th:action="@{/user/add-cart}">
+                                        <div class="box-tocart d-flex">
+                                            <input type="hidden" id="bookId" name="bookId" th:value="${book.id}">
+                                            <span>Qantity</span>
+                                            <input id="quantity" name="quantity" class="input-text qty"  min="1" value="1"
+                                                   title="Qty" type="number">
+                                            <div class="addtocart__actions">
+                                                <button class="tocart" type="submit" title="Add to Cart">Add to
+                                                    Cart
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>

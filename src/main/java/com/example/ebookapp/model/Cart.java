@@ -26,6 +26,8 @@ public class Cart {
     private String image;
     @Column(name = "price")
     private Double price;
+    @Column(name = "status")
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
@@ -35,7 +37,12 @@ public class Cart {
     @JoinColumn(name = "bookId", referencedColumnName = "id")
     private BookDetails book;
 
+    @ManyToOne
+    @JoinColumn(name = "orderId", referencedColumnName = "id")
+    private Order order;
+
     public Cart(BookDetails book) {
+        this.status = true;
         this.quantity = 1L;
         this.book = book;
         this.bookName = book.getBookName();

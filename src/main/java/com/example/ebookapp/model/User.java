@@ -43,6 +43,4 @@ public class User {
     private Set<BookDetails> bookDetails;
     @OneToMany(mappedBy = "user")
     private Set<Cart> carts;
-    @OneToMany(mappedBy = "user")
-    private Set<Order> orders;
 }

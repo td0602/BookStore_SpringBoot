@@ -74,7 +74,7 @@
 <!--        });-->
 <!--    </script>-->
 
-    //Hàm cập nhật giá trị cho giỏ hàng
+<!--    Hàm cập nhật giá trị cho giỏ hàng-->
     <script th:inline="javascript">
         $(document).ready(function() {
 
@@ -83,6 +83,9 @@
             // Xử lý sự kiện thay đổi quantity
             $('.quantity-input').on('input', function() {
                 var cartId = $(this).attr('id').replace('quantity', '');
+                var newQuantity = $(this).val();
+                // Gọi API để cập nhật quantity trong cơ sở dữ liệu
+                updateQuantityInDatabase(cartId, newQuantity);
                 updateSubtotal(cartId);
                 updateTotalSubtotal();
             });
@@ -92,6 +95,16 @@
                 var quantity = $('#quantity' + cartId).val();
                 var price = $('#price' + cartId).text();
                 var subtotal = quantity * price;
+
+                // Tạo đối tượng XMLHttpRequest để cập nhật luôn giá trị quantity vào CSDL
+                var xhr = new XMLHttpRequest();
+                // Đặt phương thức và đường dẫn của yêu cầu
+                xhr.open("POST", "/user/update-cart", true);
+                // Chuẩn bị dữ liệu để gửi đi
+                var formData = "?cartId=" + cartId + "&quantity=" + quantity;
+                // Gửi yêu cầu với dữ liệu
+                xhr.send(formData);
+
                 $('#result' + cartId).text(subtotal);
             }
 
@@ -111,6 +124,24 @@
                 // Hiển thị tổng giá trị subtotal trong thẻ span
                 $('#cartTotal').text('$' + totalSubtotal.toFixed(2));
                 $('#grandTotal').text('$' + grandTotal);
+            }
+
+            // Hàm gọi API để cập nhật quantity trong cơ sở dữ liệu
+            function updateQuantityInDatabase(cartId, newQuantity) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/user/update-cart',
+                    data: {
+                        cartId: cartId,
+                        quantity: newQuantity
+                    },
+                    success: function(response) {
+                        console.log(response); // Hiển thị thông báo thành công trong console
+                    },
+                    error: function(error) {
+                        console.error(error); // Hiển thị thông báo lỗi trong console
+                    }
+                });
             }
         });
     </script>

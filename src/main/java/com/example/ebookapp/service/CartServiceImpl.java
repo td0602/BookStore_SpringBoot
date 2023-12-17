@@ -18,6 +18,11 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
+    public Cart findById(Long id) {
+        return cartRepository.findById(id).get();
+    }
+
+    @Override
     public Boolean create(Cart cart) {
         try {
             cartRepository.save(cart);

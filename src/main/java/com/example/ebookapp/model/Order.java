@@ -38,9 +38,5 @@ public class Order {
     private String note;
 
     @OneToMany(mappedBy = "order")
-    private Set<BookOrder> bookOrders;
-
-    @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private User user;
+    private Set<Cart> carts;
 }

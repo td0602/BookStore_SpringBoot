@@ -43,7 +43,4 @@ public class BookDetails {
 
     @OneToMany(mappedBy = "book")
     private Set<Cart> carts;
-
-    @OneToMany(mappedBy = "book")
-    private Set<BookOrder> bookOrders;
 }
