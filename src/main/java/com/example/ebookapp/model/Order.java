@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class Order {
@@ -36,7 +36,15 @@ public class Order {
     private String payment;
     @Column(name = "note")
     private String note;
+    @Column(name = "date")
+    private Date date;
 
-    @OneToMany(mappedBy = "order")
-    private Set<Cart> carts;
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.ALL})
+    private List<Cart> carts;
+
+    public Order() {
+        this.date = new Date();
+        this.orderTotal = 0.0;
+        this.orderId = "TD-ORDER-"+this.date.toString();
+    }
 }

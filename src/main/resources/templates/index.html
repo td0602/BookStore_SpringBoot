@@ -8,13 +8,13 @@
 <body>
 
 <!--ALERT-->
-<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert translateZ-3">
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert text-center">
 <!--  <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>-->
   <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
   Success
 </div>
 
-<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert">
+<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert text-center">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
   <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
   !
@@ -72,7 +72,7 @@
                 <div class="action">
                   <div class="actions_inner">
                     <ul class="add_to_links">
-                      <li><a class="cart" href="cart.html"><i
+                      <li><a class="cart" th:href="@{'/user/order?bookId='+${book.id}}"><i
                               class="bi bi-shopping-bag4"></i></a></li>
                       <li><a th:href="@{'/user/add-cart?bookId='+${book.id}}"><i
                               class="bi bi-shopping-cart-full"></i></a></li>
@@ -150,7 +150,7 @@
                     <div class="action hot__box">
                       <div class="actions_inner">
                         <ul class="add_to_links">
-                          <li><a class="cart" href="cart.html"><i
+                          <li><a class="cart" th:href="@{'/user/order?bookId='+${book1.id}}"><i
                                   class="bi bi-shopping-bag4"></i></a></li>
                           <li><a class="wishlist" th:href="@{'/user/add-cart?bookId='+${book1.id}}"><i
                                   class="bi bi-shopping-cart-full"></i></a></li>
@@ -195,7 +195,7 @@
                     <div class="action">
                       <div class="actions_inner">
                         <ul class="add_to_links">
-                          <li><a class="cart" href="cart.html"><i
+                          <li><a class="cart" th:href="@{'/user/order?bookId='+${book2.id}}"><i
                                   class="bi bi-shopping-bag4"></i></a></li>
                           <li><a class="wishlist" th:href="@{'/user/add-cart?bookId='+${book2.id}}"><i
                                   class="bi bi-shopping-cart-full"></i></a></li>

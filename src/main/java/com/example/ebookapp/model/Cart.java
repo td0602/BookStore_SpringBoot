@@ -26,6 +26,8 @@ public class Cart {
     private String image;
     @Column(name = "price")
     private Double price;
+    @Column(name = "total")
+    private Double total;
     @Column(name = "status")
     private Boolean status;
 
@@ -47,6 +49,7 @@ public class Cart {
         this.book = book;
         this.bookName = book.getBookName();
         this.price = book.getPrice();
+        this.total = book.getPrice();;
         this.image = book.getImage();
     }
 }

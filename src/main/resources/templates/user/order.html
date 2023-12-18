@@ -7,13 +7,13 @@
 <body>
 
 <!--ALERT-->
-<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert translateZ-3">
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert text-center">
     <!--  <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>-->
     <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
     Success
 </div>
 
-<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert">
+<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert text-center">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
     !
@@ -58,147 +58,49 @@
                 <div class="col-lg-6 col-12">
                     <div class="customer_details">
                         <h3>Billing details</h3>
-                        <div class="customar__field">
-                            <div class="margin_between">
-                                <div class="input_box space_between">
-                                    <label>First name <span>*</span></label>
-                                    <input type="text">
+                        <form id="orderForm" method="post" th:action="@{'/user/order'+${bookId!=null? '?bookId='+bookId:''}}" th:object="${order}">
+                            <div class="customar__field">
+                                <input type="hidden" id="orderTotal" name="orderTotal" th:value="(${order.orderTotal}+70)">
+                                <div class="input_box">
+                                    <label>Full name <span>*</span></label>
+                                    <input type="text" placeholder="Full name" id="fullName" name="fullName" th:value="${customUserDetails.user.fullName}" required>
                                 </div>
-                                <div class="input_box space_between">
-                                    <label>last name <span>*</span></label>
-                                    <input type="text">
+                                <div class="input_box">
+                                    <label>Address <span>*</span></label>
+                                    <input type="text" placeholder="Street address" id="address" name="address" th:value="${customUserDetails.user.address}" required>
                                 </div>
-                            </div>
-                            <div class="input_box">
-                                <label>Company name <span>*</span></label>
-                                <input type="text">
-                            </div>
-                            <div class="input_box">
-                                <label>Country<span>*</span></label>
-                                <select class="select__option">
-                                    <option>Select a country…</option>
-                                    <option>Afghanistan</option>
-                                    <option>American Samoa</option>
-                                    <option>Anguilla</option>
-                                    <option>American Samoa</option>
-                                    <option>Antarctica</option>
-                                    <option>Antigua and Barbuda</option>
-                                </select>
-                            </div>
-                            <div class="input_box">
-                                <label>Address <span>*</span></label>
-                                <input type="text" placeholder="Street address">
-                            </div>
-                            <div class="input_box">
-                                <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
-                            </div>
-                            <div class="input_box">
-                                <label>District<span>*</span></label>
-                                <select class="select__option">
-                                    <option>Select a country…</option>
-                                    <option>Afghanistan</option>
-                                    <option>American Samoa</option>
-                                    <option>Anguilla</option>
-                                    <option>American Samoa</option>
-                                    <option>Antarctica</option>
-                                    <option>Antigua and Barbuda</option>
-                                </select>
-                            </div>
-                            <div class="input_box">
-                                <label>Postcode / ZIP <span>*</span></label>
-                                <input type="text">
-                            </div>
-                            <div class="margin_between">
-                                <div class="input_box space_between">
-                                    <label>Phone <span>*</span></label>
-                                    <input type="text">
+                                <div class="input_box">
+                                    <label>Payment<span>*</span></label>
+                                    <select class="select__option" id="payment" name="payment">
+                                        <option>Thanh toán khi nhận hàng (COD - Cash on Delivery)</option>
+                                        <option>Ví điện tử</option>
+                                        <option>Tài khoản ngân hàng</option>
+                                        <option>Thẻ tín dụng/debit</option>
+                                    </select>
                                 </div>
+                                <div class="input_box">
+                                    <label>Note </label>
+                                    <input type="text" placeholder="Note" id="note" name="note">
+                                </div>
+                                <div class="margin_between">
+                                    <div class="input_box space_between">
+                                        <label>Phone <span>*</span></label>
+                                        <input type="text" id="phoneNumber" name="phoneNumber" th:value="${customUserDetails.user.phoneNumber}" required>
+                                    </div>
 
-                                <div class="input_box space_between">
-                                    <label>Email address <span>*</span></label>
-                                    <input type="email">
+                                    <div class="input_box space_between">
+                                        <label>Email address <span>*</span></label>
+                                        <input type="email" id="email" name="email" th:value="${customUserDetails.user.email}"  required>
+                                    </div>
+                                </div>
+                                <div class="cartbox__btn">
+                                    <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+                                        <li></li>
+                                        <li><a id="submitOrderForm">Order</a></li>
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="create__account">
-                            <div class="wn__accountbox">
-                                <input class="input-checkbox" name="createaccount" value="1" type="checkbox">
-                                <span>Create an account ?</span>
-                            </div>
-                            <div class="account__field">
-                                <form action="#">
-                                    <label>Account password <span>*</span></label>
-                                    <input type="text" placeholder="password">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="customer_details mt--20">
-                        <div class="differt__address">
-                            <input name="ship_to_different_address" value="1" type="checkbox">
-                            <span>Ship to a different address ?</span>
-                        </div>
-                        <div class="customar__field differt__form mt--40">
-                            <div class="margin_between">
-                                <div class="input_box space_between">
-                                    <label>First name <span>*</span></label>
-                                    <input type="text">
-                                </div>
-                                <div class="input_box space_between">
-                                    <label>last name <span>*</span></label>
-                                    <input type="text">
-                                </div>
-                            </div>
-                            <div class="input_box">
-                                <label>Company name <span>*</span></label>
-                                <input type="text">
-                            </div>
-                            <div class="input_box">
-                                <label>Country<span>*</span></label>
-                                <select class="select__option">
-                                    <option>Select a country…</option>
-                                    <option>Afghanistan</option>
-                                    <option>American Samoa</option>
-                                    <option>Anguilla</option>
-                                    <option>American Samoa</option>
-                                    <option>Antarctica</option>
-                                    <option>Antigua and Barbuda</option>
-                                </select>
-                            </div>
-                            <div class="input_box">
-                                <label>Address <span>*</span></label>
-                                <input type="text" placeholder="Street address">
-                            </div>
-                            <div class="input_box">
-                                <input type="text" placeholder="Apartment, suite, unit etc. (optional)">
-                            </div>
-                            <div class="input_box">
-                                <label>District<span>*</span></label>
-                                <select class="select__option">
-                                    <option>Select a country…</option>
-                                    <option>Afghanistan</option>
-                                    <option>American Samoa</option>
-                                    <option>Anguilla</option>
-                                    <option>American Samoa</option>
-                                    <option>Antarctica</option>
-                                    <option>Antigua and Barbuda</option>
-                                </select>
-                            </div>
-                            <div class="input_box">
-                                <label>Postcode / ZIP <span>*</span></label>
-                                <input type="text">
-                            </div>
-                            <div class="margin_between">
-                                <div class="input_box space_between">
-                                    <label>Phone <span>*</span></label>
-                                    <input type="text">
-                                </div>
-                                <div class="input_box space_between">
-                                    <label>Email address <span>*</span></label>
-                                    <input type="email">
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-lg-6 col-12 md-mt-40 sm-mt-40">
@@ -209,30 +111,18 @@
                             <li>Total</li>
                         </ul>
                         <ul class="order_product">
-                            <li>Buscipit at magna × 1<span>$48.00</span></li>
-                            <li>Buscipit at magna × 1<span>$48.00</span></li>
-                            <li>Buscipit at magna × 1<span>$48.00</span></li>
-                            <li>Buscipit at magna × 1<span>$48.00</span></li>
-                        </ul>
-                        <ul class="shipping__method">
-                            <li>Cart Subtotal <span>$48.00</span></li>
-                            <li>Shipping
-                                <ul>
-                                    <li>
-                                        <input name="shipping_method[0]" data-index="0" value="legacy_flat_rate"
-                                               checked="checked" type="radio">
-                                        <label>Flat Rate: $48.00</label>
-                                    </li>
-                                    <li>
-                                        <input name="shipping_method[0]" data-index="0" value="legacy_flat_rate"
-                                               checked="checked" type="radio">
-                                        <label>Flat Rate: $48.00</label>
-                                    </li>
-                                </ul>
+                            <li th:each="cart:${carts}">
+<!--                                <p th:text="${cart.bookName}+' × '+${cart.quantity}"></p>-->
+                                <p th:text="${cart.bookName}+' × '+${cart.quantity}"></p>
+                                <span th:text="'$'+${cart.total}"></span>
                             </li>
                         </ul>
+                        <ul class="shipping__method">
+                            <li>Cart Subtotal <span th:text="'$'+(${order.orderTotal})"></span></li>
+                            <li>Shipping <span>$70.00</span></li>
+                        </ul>
                         <ul class="total__amount">
-                            <li>Order Total <span>$223.00</span></li>
+                            <li>Order Total <span th:text="'$'+(${order.orderTotal}+70)"></span></li>
                         </ul>
                     </div>
                     <div id="accordion" class="checkout_accordion mt--30" role="tablist">
@@ -303,6 +193,16 @@
 </div>
 <!-- //Main wrapper -->
 <script th:replace="~{/user/fragments/script::script}"></script>
+
+<script>
+    document.getElementById("submitOrderForm").addEventListener("click", function() {
+        // Lấy ra biểu mẫu theo ID
+        var form = document.getElementById("orderForm");
+
+        // Submit biểu mẫu
+        form.submit();
+    });
+</script>
 
 </body>
 </html>

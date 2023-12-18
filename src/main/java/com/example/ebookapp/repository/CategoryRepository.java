@@ -18,4 +18,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Query("SELECT c FROM Category c WHERE c.categoryName LIKE %?1% ORDER BY c.id")
     List<Category> searchCategory(String keyword);
 
+
 }

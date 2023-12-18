@@ -9,13 +9,13 @@
 <body>
 
 <!--ALERT-->
-<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert translateZ-3">
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert text-center">
     <!--  <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>-->
     <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
     Success
 </div>
 
-<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert">
+<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert text-center">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
     !
@@ -76,6 +76,7 @@
                                         <td class="product-thumbnail"><a href="#"><img
                                                 th:src="@{'/uploads/books/'+${cart.image}}" alt="product img"></a></td>
 <!--                                        <input type="hidden" id="id" name="id" th:value="${cart.id}">-->
+<!--                                        <input type="hidden" th:id="'result'+${cart.id}" th:value="${cart.total}">-->
                                         <td class="product-name"><a href="#" th:text="${cart.bookName}"></a></td>
                                         <td class="product-price">$<span type="text" th:id="'price'+${cart.id}" class="amount" th:text="${cart.price}"></span></td>
                                         <td class="product-quantity"><input type="number" class="quantity-input" th:id="quantity+${cart.id}" name="quantity" th:value="${cart.quantity}" min="1"></td>
@@ -129,16 +130,6 @@
 
 <!-- JS Files -->
 <div th:replace="~{/user/fragments/script::script}"></div>
-
-<script>
-    document.getElementById("submitCartForm").addEventListener("click", function() {
-        // Lấy ra biểu mẫu theo ID
-        var form = document.getElementById("cartForm");
-
-        // Submit biểu mẫu
-        form.submit();
-    });
-</script>
 
 </body>
 </html>

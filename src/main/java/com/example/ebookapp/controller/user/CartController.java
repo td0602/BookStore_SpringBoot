@@ -37,11 +37,12 @@ public class CartController {
         if(quantity!=null) {
             cart.setQuantity(quantity);
         }
+        cart.setTotal(cart.getQuantity()*cart.getPrice());
         cart.setUser(customUserDetails.getUser());
         if(cartService.create(cart)) {
             myMessage = "Đã thêm sách vào giỏ hàng!";
             redirectAttributes.addFlashAttribute("successMessage", myMessage);
-            return "redirect:/user/cart";
+            return "redirect:/grid-shop";
         }
         myMessage = "Thêm sách vào giỏ hàng thất bại";
         redirectAttributes.addFlashAttribute("errorMessage", myMessage);
@@ -94,6 +95,7 @@ public class CartController {
         //tạo response để trả về cho Client
         ResponseEntity<String> response = null;
         Cart cart = cartService.findById(cartId);
+        cart.setTotal(quantity*cart.getPrice());
         cart.setQuantity(quantity);
         if(cartService.update(cart)) {
             response = ResponseEntity.status(HttpStatus.CREATED)
