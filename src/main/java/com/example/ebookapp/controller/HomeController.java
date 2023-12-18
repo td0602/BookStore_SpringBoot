@@ -34,7 +34,8 @@ public class HomeController {
     public String gridShop(Model model,
                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                            @RequestParam(value = "keyword", required = false) String keyword,
-                           @RequestParam(value = "categoryId", required = false) Long categoryId) {
+                           @RequestParam(value = "categoryId", required = false) Long categoryId,
+                           @RequestParam(value = "orderBy", required = false) String orderBy) {
         Page<BookDetails> list = bookService.getAll(pageNo);
         if (categoryId != null) {
             list = bookService.getByCategory(categoryId, pageNo);
@@ -43,6 +44,14 @@ public class HomeController {
         if(keyword != null && !keyword.equals("")) {
             list = bookService.search(keyword, pageNo);
             model.addAttribute("keyword", keyword);
+        }
+        if(orderBy != null) {
+            if(orderBy.equals("increasing")) {
+                list = bookService.getAllBookOrderByAsc(pageNo);
+            } else if (orderBy.equals("decreasing")) {
+                list = bookService.getAllBookOrderByDesc(pageNo);
+            }
+            model.addAttribute("orderBy", orderBy);
         }
         model.addAttribute("totalPage", list.getTotalPages());
         model.addAttribute("currentPage", pageNo);

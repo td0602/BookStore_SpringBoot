@@ -94,4 +94,16 @@ public class BookServiceImpl implements BookService{
         list = list.subList(start, end);
         return new PageImpl<BookDetails>(list, pageable, search(keyword).size());
     }
+
+    @Override
+    public Page<BookDetails> getAllBookOrderByAsc(Integer pageNo) {
+       Pageable pageable = PageRequest.of(pageNo-1, 9);
+       return bookRepository.findAllByOrderByPriceAsc(pageable);
+    }
+
+    @Override
+    public Page<BookDetails> getAllBookOrderByDesc(Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, 9);
+        return bookRepository.findAllByOrderByPriceDesc(pageable);
+    }
 }

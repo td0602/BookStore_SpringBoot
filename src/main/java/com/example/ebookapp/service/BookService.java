@@ -20,4 +20,6 @@ public interface BookService {
     Page<BookDetails> getAll(Integer pageNo);
     Page<BookDetails> getByCategory(Long id, Integer pageNo);
     Page<BookDetails> search(String keyword, Integer pageNo);
+    Page<BookDetails> getAllBookOrderByAsc(Integer pageNo);
+    Page<BookDetails> getAllBookOrderByDesc(Integer PageNo);
 }

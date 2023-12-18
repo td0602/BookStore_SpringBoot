@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
+    @Getter
     private User user;
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -58,7 +59,7 @@ public class CustomUserDetails implements UserDetails {
         return user.getId();
     }
 
-    public User getUser() {
-        return user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
 }
