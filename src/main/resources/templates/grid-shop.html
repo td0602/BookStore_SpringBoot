@@ -2,7 +2,7 @@
 <html class="no-js" lang="zxx" xmlns:th="https://www.thymeleaf.org">
 
 <head>
-    <title>Grid-Shop | Books Library eCommerce Store</title>
+    <title>test | Books Library eCommerce Store</title>
 </head>
 <head th:replace="~{/user/fragments/head::head}"></head>
 <body>
@@ -95,16 +95,19 @@
                                 <div class="orderby__wrapper">
                                     <span>Sort By</span>
                                     <select id="sortDropdown" class="shot__byselect" onchange="redirectToSelectedOption()">
-                                        <option value="" class="title">Choose an option</option>
+                                        <option th:text="${orderBy!=null&&orderBy!=''?(orderBy=='increasing'?'Increasing Price':'Decreasing Price'):'Choose an option'}" class="title"></option>
                                         <option value="increasing">Increasing Price</option>
                                         <option value="decreasing">Decreasing Price</option>
                                     </select>
                                 </div>
 
-                                <form>
+                                <form th:action="@{/grid-shop}" method="get">
                                     <div class="box-tools pull-right margin-bottom">
                                         <div class="input-group input-group-sm hidden-xs" style="width: 200px;">
+                                            <!--                                            'categoryId='+(categoryId!=null?categoryId:'')+'&orderBy='+(orderBy!=null&&orderBy!=''?orderBy:'')+'&keyword'-->
+                                            <input th:if="${categoryId!=null}" type="hidden" name="categoryId" th:value="${categoryId}">
                                             <input type="text" name="keyword" class="form-control pull-right" placeholder="Search" th:value="${keyword}">
+                                            <input th:if="${orderBy!=null&&orderBy!=''}" type="hidden" name="orderBy" th:value="${orderBy}">
                                             <div class="input-group-btn">
                                                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                                             </div>
@@ -164,14 +167,14 @@
                             </div>
                             <ul class="wn__pagination">
                                 <li th:if="${currentPage > 1}">
-                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${currentPage -1}}"><i class="zmdi zmdi-chevron-left"></i>
+                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${currentPage -1}}"><i class="zmdi zmdi-chevron-left"></i>
                                     </a>
                                 </li>
                                 <li th:each="i:${#numbers.sequence(1,totalPage)}" th:classappend="${currentPage==i?'active':''}">
-                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${i}}" th:text="${i}"></a>
+                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword!=null&&keyword!=''?'keyword='+keyword+'&':''}+${orderBy!=null?'orderBy='+orderBy+'&':''}+'pageNo='+${i}}" th:text="${i}"></a>
                                 </li>
                                 <li th:if="${currentPage < totalPage}">
-                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${currentPage+1}}"><i class="zmdi zmdi-chevron-right"></i>
+                                    <a th:href="@{'/grid-shop?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${currentPage+1}}"><i class="zmdi zmdi-chevron-right"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -197,12 +200,35 @@
     function redirectToSelectedOption() {
         var selectElement = document.getElementById("sortDropdown");
         var selectedValue = selectElement.value;
+        var currentURI = window.location.href;
 
-        // Check the selected value and redirect accordingly
+        if (currentURI.includes("&orderBy=increasing")) {
+            currentURI = currentURI.replace("&orderBy=increasing", "");
+        }
+        if (currentURI.includes("?orderBy=increasing")) {
+            currentURI = currentURI.replace("?orderBy=increasing", "?");
+        }
+        if (currentURI.includes("&orderBy=decreasing")) {
+            currentURI = currentURI.replace("&orderBy=decreasing", "");
+        }
+        if (currentURI.includes("?orderBy=decreasing")) {
+            currentURI = currentURI.replace("?orderBy=decreasing", "?");
+        }
+
+        var state = currentURI.includes("?");
+
         if (selectedValue === "increasing") {
-            window.location.href = "/grid-shop?orderBy=increasing";
+            if(state) {
+                window.location.href = currentURI+"&orderBy=increasing";
+            } else {
+                window.location.href = currentURI+"?orderBy=increasing";
+            }
         } else if (selectedValue === "decreasing") {
-            window.location.href = "/grid-shop?orderBy=decreasing";
+            if(state) {
+                window.location.href = currentURI+"&orderBy=decreasing";
+            } else {
+                window.location.href = currentURI+"?orderBy=decreasing";
+            }
         }
     }
 </script>

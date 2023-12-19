@@ -1,6 +1,7 @@
 package com.example.ebookapp.service;
 
 import com.example.ebookapp.model.BookDetails;
+import com.example.ebookapp.model.Category;
 import com.example.ebookapp.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -105,5 +106,11 @@ public class BookServiceImpl implements BookService{
     public Page<BookDetails> getAllBookOrderByDesc(Integer pageNo) {
         Pageable pageable = PageRequest.of(pageNo-1, 9);
         return bookRepository.findAllByOrderByPriceDesc(pageable);
+    }
+    //Thay the cac function Page<BookDetails> tren
+    @Override
+    public Page<BookDetails> getBooksByFilter(Category category, String orderBy, String keyword, Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, 9);
+        return bookRepository.findBooksByFilter(category,orderBy,keyword,pageable);
     }
 }

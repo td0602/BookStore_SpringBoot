@@ -1,7 +1,9 @@
 package com.example.ebookapp.controller;
 
 import com.example.ebookapp.model.BookDetails;
+import com.example.ebookapp.model.Category;
 import com.example.ebookapp.service.BookService;
+import com.example.ebookapp.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import java.util.List;
 public class HomeController {
     @Autowired
     private BookService bookService;
+    @Autowired
+    private CategoryService categoryService;
     @GetMapping("/home")
     public String home(Model model) {
         List<BookDetails> allBooks = bookService.getAll();
@@ -36,23 +40,18 @@ public class HomeController {
                            @RequestParam(value = "keyword", required = false) String keyword,
                            @RequestParam(value = "categoryId", required = false) Long categoryId,
                            @RequestParam(value = "orderBy", required = false) String orderBy) {
-        Page<BookDetails> list = bookService.getAll(pageNo);
-        if (categoryId != null) {
-            list = bookService.getByCategory(categoryId, pageNo);
-            model.addAttribute("categoryId", categoryId);
+        Category category = null;
+        if(categoryId != null) {
+            category = categoryService.findById(categoryId);
         }
-        if(keyword != null && !keyword.equals("")) {
-            list = bookService.search(keyword, pageNo);
-            model.addAttribute("keyword", keyword);
-        }
-        if(orderBy != null) {
-            if(orderBy.equals("increasing")) {
-                list = bookService.getAllBookOrderByAsc(pageNo);
-            } else if (orderBy.equals("decreasing")) {
-                list = bookService.getAllBookOrderByDesc(pageNo);
-            }
-            model.addAttribute("orderBy", orderBy);
-        }
+        Page<BookDetails> list = bookService.getBooksByFilter(category, orderBy, keyword, pageNo);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("orderBy", orderBy);
+        model.addAttribute("categoryId", categoryId);
+
+        model.addAttribute("totalPage", list.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("bookList", list);
         model.addAttribute("totalPage", list.getTotalPages());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("bookList", list);

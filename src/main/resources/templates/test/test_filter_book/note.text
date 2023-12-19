@@ -1,0 +1,3 @@
+Để lọc Book có 2 cách:
+- Sử dụng: BookSpecifications (if else nhiều, có thể clean code)
+- Sử dụng thuần SQL với Repository (Ngắn gọn không cần if else)

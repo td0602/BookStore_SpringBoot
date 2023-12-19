@@ -1,15 +1,13 @@
-package com.example.ebookapp.test_filter_book;
+package com.example.ebookapp.test.test_filter_book;
 
 import com.example.ebookapp.model.BookDetails;
 import com.example.ebookapp.model.Category;
 import com.example.ebookapp.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -18,12 +16,13 @@ public class TestBookController {
     private TestBookService testBookService;
     @Autowired
     private CategoryService categoryService;
-    @GetMapping("/test")
+    @GetMapping("/test_filter_book")
     public String index(Model model,
                         @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                         @RequestParam(name = "keyword", required = false) String keyword,
                         @RequestParam(name = "categoryId", required = false) Long categoryId,
                         @RequestParam(name = "orderBy", required = false) String orderBy) {
+        /* CACH 1:
         Specification<BookDetails> specification = null;
         Category category = null;
         if(categoryId != null) {
@@ -69,6 +68,22 @@ public class TestBookController {
         model.addAttribute("totalPage", list.getTotalPages());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("bookList", list);
-        return "test";
+        return "test/test_filterbook/test";
+         */
+
+        //Cach 2
+        Category category = null;
+        if(categoryId != null) {
+            category = categoryService.findById(categoryId);
+        }
+        Page<BookDetails> list = testBookService.getBooksByFilter(category, orderBy, keyword, pageNo);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("orderBy", orderBy);
+        model.addAttribute("categoryId", categoryId);
+
+        model.addAttribute("totalPage", list.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("bookList", list);
+        return "test/test_filter_book/test";
     }
 }

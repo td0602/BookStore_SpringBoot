@@ -55,7 +55,7 @@
                         <aside class="widget__categories products--cat">
                             <h3 class="widget__title">Book Categories</h3>
                             <ul>
-                                <li th:each="category:${categoryList}"><a th:href="@{'/test?categoryId='+${category.id}}" th:text="${category.categoryName}"> <span>(3)</span></a></li>
+                                <li th:each="category:${categoryList}"><a th:href="@{'/test_filter_book?categoryId='+${category.id}}" th:text="${category.categoryName}"> <span>(3)</span></a></li>
 
                             </ul>
                         </aside>
@@ -101,7 +101,7 @@
                                     </select>
                                 </div>
 
-                                <form th:action="@{/test}" method="get">
+                                <form th:action="@{/test_filter_book}" method="get">
                                     <div class="box-tools pull-right margin-bottom">
                                         <div class="input-group input-group-sm hidden-xs" style="width: 200px;">
 <!--                                            'categoryId='+(categoryId!=null?categoryId:'')+'&orderBy='+(orderBy!=null&&orderBy!=''?orderBy:'')+'&keyword'-->
@@ -167,14 +167,14 @@
                             </div>
                             <ul class="wn__pagination">
                                 <li th:if="${currentPage > 1}">
-                                    <a th:href="@{'/test?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${currentPage -1}}"><i class="zmdi zmdi-chevron-left"></i>
+                                    <a th:href="@{'/test_filter_book?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${currentPage -1}}"><i class="zmdi zmdi-chevron-left"></i>
                                     </a>
                                 </li>
                                 <li th:each="i:${#numbers.sequence(1,totalPage)}" th:classappend="${currentPage==i?'active':''}">
-                                    <a th:href="@{'/test?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword!=null&&keyword!=''?'keyword='+keyword+'&':''}+${orderBy!=null?'orderBy='+orderBy+'&':''}+'pageNo='+${i}}" th:text="${i}"></a>
+                                    <a th:href="@{'/test_filter_book?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword!=null&&keyword!=''?'keyword='+keyword+'&':''}+${orderBy!=null?'orderBy='+orderBy+'&':''}+'pageNo='+${i}}" th:text="${i}"></a>
                                 </li>
                                 <li th:if="${currentPage < totalPage}">
-                                    <a th:href="@{'/test?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${currentPage+1}}"><i class="zmdi zmdi-chevron-right"></i>
+                                    <a th:href="@{'/test_filter_book?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${currentPage+1}}"><i class="zmdi zmdi-chevron-right"></i>
                                     </a>
                                 </li>
                             </ul>

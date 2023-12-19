@@ -1,7 +1,9 @@
 package com.example.ebookapp.service;
 
 import com.example.ebookapp.model.BookDetails;
+import com.example.ebookapp.model.Category;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -22,4 +24,10 @@ public interface BookService {
     Page<BookDetails> search(String keyword, Integer pageNo);
     Page<BookDetails> getAllBookOrderByAsc(Integer pageNo);
     Page<BookDetails> getAllBookOrderByDesc(Integer PageNo);
+
+    //Thay the 5 function tren
+    Page<BookDetails> getBooksByFilter(
+            @Param("category") Category category,
+            @Param("orderBy") String orderBy,
+            @Param("keyword") String keyword, Integer pageNo);
 }

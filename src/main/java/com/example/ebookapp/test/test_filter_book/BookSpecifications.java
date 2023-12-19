@@ -1,4 +1,4 @@
-package com.example.ebookapp.test_filter_book;
+package com.example.ebookapp.test.test_filter_book;
 
 import com.example.ebookapp.model.BookDetails;
 import com.example.ebookapp.model.Category;
