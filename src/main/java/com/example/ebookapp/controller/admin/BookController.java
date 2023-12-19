@@ -29,18 +29,35 @@ public class BookController {
 
     @GetMapping("/books")
     public String index(Model model,
-                        @RequestParam(value = "keyword", required = false) String keyword,
-                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                        @RequestParam(value = "categoryId", required = false) Long categoryId) {
-        Page<BookDetails> list = bookService.getAll(pageNo);
-        if (categoryId != null) {
-            list = bookService.getByCategory(categoryId, pageNo);
-            model.addAttribute("categoryId", categoryId);
+                        @RequestParam(name = "keyword", required = false) String keyword,
+                        @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
+                        @RequestParam(name = "categoryId", required = false) Long categoryId,
+                        @RequestParam(value = "orderBy", required = false) String orderBy) {
+//        Page<BookDetails> list = bookService.getAll(pageNo);
+//        if (categoryId != null) {
+//            list = bookService.getByCategory(categoryId, pageNo);
+//            model.addAttribute("categoryId", categoryId);
+//        }
+//        if(keyword != null && !keyword.equals("")) {
+//            list = bookService.search(keyword, pageNo);
+//            model.addAttribute("keyword", keyword);
+//        }
+//        model.addAttribute("totalPage", list.getTotalPages());
+//        model.addAttribute("currentPage", pageNo);
+//        model.addAttribute("list", list);
+//        return "admin/book/index";
+
+        //Lam lai
+        Category category = null;
+        if(categoryId != null) {
+            category = categoryService.findById(categoryId);
         }
-        if(keyword != null && !keyword.equals("")) {
-            list = bookService.search(keyword, pageNo);
-            model.addAttribute("keyword", keyword);
-        }
+        Page<BookDetails> list = bookService.getBooksByFilter(category, orderBy, keyword, pageNo);
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("orderBy", orderBy);
+        model.addAttribute("categoryId", categoryId);
+
         model.addAttribute("totalPage", list.getTotalPages());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("list", list);

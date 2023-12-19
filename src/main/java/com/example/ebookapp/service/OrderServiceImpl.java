@@ -7,6 +7,9 @@ import com.example.ebookapp.repository.BookRepository;
 import com.example.ebookapp.repository.CartRepository;
 import com.example.ebookapp.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +27,12 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<Order> getByPhoneNumber(String phoneNumber) {
         return orderRepository.findAllByPhoneNumber(phoneNumber);
+    }
+
+    @Override
+    public Page<Order> getAll(String keyword, Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, 9);
+        return orderRepository.findOrdersByFilter(keyword, pageable);
     }
 
     @Override

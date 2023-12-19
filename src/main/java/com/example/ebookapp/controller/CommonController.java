@@ -77,9 +77,6 @@ public class CommonController {
         model.addAttribute("totalPage", list.getTotalPages());
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("bookList", list);
-        model.addAttribute("totalPage", list.getTotalPages());
-        model.addAttribute("currentPage", pageNo);
-        model.addAttribute("bookList", list);
         return "grid-shop";
     }
     @GetMapping("/single-book/{id}")

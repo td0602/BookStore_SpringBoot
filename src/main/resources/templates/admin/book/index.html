@@ -44,10 +44,13 @@
       <div class="box">
         <div class="box-body">
 
-          <form>
+          <form th:action="@{/admin/books}" method="get">
             <div class="box-tools pull-right margin-bottom">
               <div class="input-group input-group-sm hidden-xs" style="width: 200px;">
+                <!--                                            'categoryId='+(categoryId!=null?categoryId:'')+'&orderBy='+(orderBy!=null&&orderBy!=''?orderBy:'')+'&keyword'-->
+                <input th:if="${categoryId!=null}" type="hidden" name="categoryId" th:value="${categoryId}">
                 <input type="text" name="keyword" class="form-control pull-right" placeholder="Search" th:value="${keyword}">
+                <input th:if="${orderBy!=null&&orderBy!=''}" type="hidden" name="orderBy" th:value="${orderBy}">
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                 </div>
@@ -68,7 +71,7 @@
                 <td th:utext="${book.id}"></td>
                 <td th:utext="${book.bookName}"></td>
                 <td th:utext="${book.price}"></td>
-                <td><img th:src="@{'/uploads/books/' + ${book.image}}" width="100"/></td>
+                <td><img th:src="@{'/uploads/books/' + ${book.image}}" width="100" height="150"/></td>
                 <td th:utext="${book.category.categoryName}"></td>
                 <td>
                   <a class="btn btn-success" th:href="@{/admin/edit-book/{id}(id=${book.id})}">Edit</a>
@@ -82,9 +85,13 @@
 
         <div class="box-footer clearfix">
           <ul class="pagination pagination-sm no-margin pull-right">
-            <li th:if="${currentPage>1}"><a th:href="@{'/admin/books?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${currentPage -1}}">«</a></li>
-            <li th:each="i:${#numbers.sequence(1,totalPage)}" th:classappend="${currentPage==i ? 'active':''}"><a th:href="@{'/admin/books?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${i}}" th:text="${i}"></a></li>
-            <li th:if="${currentPage<totalPage}"><a th:href="@{'/admin/books?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} + 'pageNo='+${currentPage+1}}">»</a></li>
+            <li th:if="${currentPage>1}">
+              <a th:href="@{'/admin/books?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${currentPage -1}}">«</a>
+            </li>
+            <li th:each="i:${#numbers.sequence(1,totalPage)}" th:classappend="${currentPage==i ? 'active':''}"><a th:href="@{'/admin/books?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${i}}" th:text="${i}"></a></li>
+            <li th:if="${currentPage<totalPage}">
+              <a th:href="@{'/admin/books?'+${categoryId!=null?'categoryId='+categoryId+'&':''}+${keyword != null && keyword != '' ? 'keyword='+keyword+'&' : ''} +${orderBy!=null?'orderBy='+orderBy+'&':''}+ 'pageNo='+${currentPage +1}}">»</a>
+            </li>
           </ul>
         </div>
       </div>
