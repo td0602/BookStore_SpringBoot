@@ -6,11 +6,13 @@ import com.example.ebookapp.service.StorageService;
 import com.example.ebookapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +39,15 @@ public class AdminController {
     }
 
     @PostMapping("/admin/edit-profile")
-    public String editProfile(Model model,
+    public String editProfile(RedirectAttributes redirectAttributes,
+                              @RequestParam(name = "oldPassword") String oldPassword,
+                              @RequestParam(name = "newPassword", required = false) String newPassword,
                               @ModelAttribute("user") User user,
                               @RequestParam("fileImage")MultipartFile fileImage) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String myMessage = null;
+        newPassword = newPassword.trim();
+
         storageService.storeUserImage(fileImage);
         String fileName = fileImage.getOriginalFilename();
         if(fileName != null) {
@@ -48,13 +55,24 @@ public class AdminController {
                 user.setImage(fileName);
             }
         }
-        if(userService.edit(user)) {
-            myMessage = "Cập nhật thành công!";
-            model.addAttribute("successMessage", myMessage);
-            return "admin/index";
+
+        if(passwordEncoder.matches(oldPassword, user.getPassword())) {
+            if(newPassword != null && !newPassword.equals("")) {
+                user.setPassword(passwordEncoder.encode(newPassword));
+            }
+            if(userService.edit(user)) {
+                myMessage = "Cập nhật thành công!";
+                redirectAttributes.addFlashAttribute("successMessage", myMessage);
+                return "redirect:/admin/home";
+            } else {
+                myMessage = "Cập nhật không thành công!";
+                redirectAttributes.addFlashAttribute("errorMessage", myMessage);
+                return "redirect:/admin/profile";
+            }
+        } else {
+            myMessage = "Mật khẩu xác thực không đúng!";
+            redirectAttributes.addFlashAttribute("errorMessage", myMessage);
+            return "redirect:/admin/profile";
         }
-        myMessage = "Cập nhật thất bại!";
-        model.addAttribute("errorMessage", myMessage);
-        return "admin/profile";
     }
 }

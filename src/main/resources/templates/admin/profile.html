@@ -156,7 +156,19 @@
                                         <div class="form-group">
                                             <label for="phonenumber" class="col-sm-2 control-label">Phone Number</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="phonenumber" placeholder="Phone Number" th:field="*{phoneNumber}">
+                                                <input type="number" class="form-control" id="phonenumber" placeholder="Phone Number" th:field="*{phoneNumber}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address" class="col-sm-2 control-label">New Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" name="newPassword">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="address" class="col-sm-2 control-label">Confirm Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" name="oldPassword">
                                             </div>
                                         </div>
                                         <div class="form-group">

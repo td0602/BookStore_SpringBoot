@@ -36,12 +36,11 @@ public class UserController {
 
     @PostMapping("/update-account")
     public String updateAccount(RedirectAttributes redirectAttributes,
-                                @AuthenticationPrincipal CustomUserDetails customUserDetails,
                                 @ModelAttribute("user") User user,
                                 @RequestParam(name = "oldPassword") String oldPassword,
                                 @RequestParam(name = "newPassword", required = false) String newPassword ) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String myMessage = newPassword;
+        String myMessage = null;
         newPassword = newPassword.trim();
         if(passwordEncoder.matches(oldPassword, user.getPassword())) {
             if(newPassword != null && !newPassword.equals("")) {
