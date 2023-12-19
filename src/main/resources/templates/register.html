@@ -38,9 +38,22 @@
     <script nonce="a7e1ba88-536d-4cce-a86d-0e70d102590a">(function(w,d){!function(dg,dh,di,dj){dg[di]=dg[di]||{};dg[di].executed=[];dg.zaraz={deferred:[],listeners:[]};dg.zaraz.q=[];dg.zaraz._f=function(dk){return async function(){var dl=Array.prototype.slice.call(arguments);dg.zaraz.q.push({m:dk,a:dl})}};for(const dm of["track","set","debug"])dg.zaraz[dm]=dg.zaraz._f(dm);dg.zaraz.init=()=>{var dn=dh.getElementsByTagName(dj)[0],dp=dh.createElement(dj),dq=dh.getElementsByTagName("title")[0];dq&&(dg[di].t=dh.getElementsByTagName("title")[0].text);dg[di].x=Math.random();dg[di].w=dg.screen.width;dg[di].h=dg.screen.height;dg[di].j=dg.innerHeight;dg[di].e=dg.innerWidth;dg[di].l=dg.location.href;dg[di].r=dh.referrer;dg[di].k=dg.screen.colorDepth;dg[di].n=dh.characterSet;dg[di].o=(new Date).getTimezoneOffset();if(dg.dataLayer)for(const du of Object.entries(Object.entries(dataLayer).reduce(((dv,dw)=>({...dv[1],...dw[1]})),{})))zaraz.set(du[0],du[1],{scope:"page"});dg[di].q=[];for(;dg.zaraz.q.length;){const dx=dg.zaraz.q.shift();dg[di].q.push(dx)}dp.defer=!0;for(const dy of[localStorage,sessionStorage])Object.keys(dy||{}).filter((dA=>dA.startsWith("_zaraz_"))).forEach((dz=>{try{dg[di]["z_"+dz.slice(7)]=JSON.parse(dy.getItem(dz))}catch{dg[di]["z_"+dz.slice(7)]=dy.getItem(dz)}}));dp.referrerPolicy="origin";dp.src="/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(dg[di])));dn.parentNode.insertBefore(dp,dn)};["complete","interactive"].includes(dh.readyState)?zaraz.init():dg.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document);</script></head>
 <body class="hold-transition register-page">
 
-<!-- Thông báo lỗi từ mô hình -->
-<div th:if="${messages}" class="alert alert-danger text-center" role="alert">
-    <span th:text="${messages}"></span>
+<!--&lt;!&ndash; Thông báo lỗi từ mô hình &ndash;&gt;-->
+<!--<div th:if="${messages}" class="alert alert-danger text-center" role="alert">-->
+<!--    <span th:text="${messages}"></span>-->
+<!--</div>-->
+
+<!--ALERT-->
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert">
+    <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
+    Success
+</div>
+
+<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
+    Kiểm tra lại thông tin!
 </div>
 
 <div class="register-box">
@@ -60,8 +73,12 @@
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email" th:field="${user.email}" required>
+                <input type="email" class="form-control" placeholder="Email" th:field="*{email}" required>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="number" class="form-control" placeholder="Phone Number" th:field="${user.phoneNumber}" required>
+                <span class="glyphicon glyphicon-phone form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password" th:field="${user.password}" required>

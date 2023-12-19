@@ -17,8 +17,6 @@ import java.util.List;
 
 @ControllerAdvice
 public class CommonAttributeController {
-//    @Autowired
-//    private UserService userService;
     @Autowired
     private CategoryService categoryService;
     @Autowired

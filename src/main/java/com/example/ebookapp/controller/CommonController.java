@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,16 +46,17 @@ public class CommonController {
         return "register";
     }
     @PostMapping("/register")
-    public String register(Model model, @ModelAttribute("user") User user) {
+    public String register(RedirectAttributes redirectAttributes,
+                           @ModelAttribute("user") User user) {
         String myMessage = null;
         if(userService.create(user)) {
             myMessage = "Đăng ký thành công!";
-            model.addAttribute("successMessage", myMessage);
-            return "index";
+            redirectAttributes.addFlashAttribute("successMessage", myMessage);
+            return "redirect:/home";
         }
         myMessage = "Đăng ký thất bại! Có thể thông tin bị trùng!";
-        model.addAttribute("messages", myMessage);
-        return "register";
+        redirectAttributes.addFlashAttribute("errorMessage", myMessage);
+        return "redirect:/register";
     }
 
     @GetMapping("/grid-shop")

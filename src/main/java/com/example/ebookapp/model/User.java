@@ -30,9 +30,9 @@ public class User {
     private Boolean enabled;
     @Column(name = "fullname", nullable = false)
     private String fullName;
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true)
     private String email;
-    @Column(name = "phonenumber", unique = true)
+    @Column(name = "phonenumber", unique = true, nullable = false)
     private String phoneNumber;
     @Column(name = "address")
     private String address;
