@@ -63,7 +63,7 @@
                                 <input type="hidden" id="orderTotal" name="orderTotal" th:value="(${order.orderTotal}+70)">
                                 <div class="input_box">
                                     <label>Full name <span>*</span></label>
-                                    <input type="text" placeholder="Full name" id="fullName" name="fullName" th:value="${customUserDetails.user.fullName}" required>
+                                    <input type="text" placeholder="Full name" id="fullName" name="fullName" th:value="${customUserDetails.user.fullName}" required readonly style="background-color: #f0f0f0;">
                                 </div>
                                 <div class="input_box">
                                     <label>Address <span>*</span></label>
@@ -85,12 +85,12 @@
                                 <div class="margin_between">
                                     <div class="input_box space_between">
                                         <label>Phone <span>*</span></label>
-                                        <input type="text" id="phoneNumber" name="phoneNumber" th:value="${customUserDetails.user.phoneNumber}" required>
+                                        <input type="text" id="phoneNumber" name="phoneNumber" th:value="${customUserDetails.user.phoneNumber}" required readonly style="background-color: #f0f0f0;">
                                     </div>
 
                                     <div class="input_box space_between">
                                         <label>Email address <span>*</span></label>
-                                        <input type="email" id="email" name="email" th:value="${customUserDetails.user.email}"  required>
+                                        <input type="email" id="email" name="email" th:value="${customUserDetails.user.email}"  required readonly style="background-color: #f0f0f0;">
                                     </div>
                                 </div>
                                 <div class="cartbox__btn">

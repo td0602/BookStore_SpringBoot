@@ -75,4 +75,18 @@ public class OrderController {
         redirectAttributes.addFlashAttribute("errorMessage", myMessage);
         return "redirect:/user/order";
     }
+
+    @GetMapping("/orders")
+    public String orders(Model model,
+                         @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        List<Order> orders = orderService.getByPhoneNumber(customUserDetails.getUser().getPhoneNumber());
+        model.addAttribute("orders", orders);
+        return "user/view-order";
+    }
+
+    @GetMapping("/delete-order/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        orderService.delete(id);
+        return "redirect:/user/orders";
+    }
 }

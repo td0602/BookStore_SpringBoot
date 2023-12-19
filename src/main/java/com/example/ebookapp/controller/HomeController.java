@@ -63,4 +63,9 @@ public class HomeController {
         model.addAttribute("book", book);
         return "/single-book";
     }
+
+    @GetMapping("/contact")
+    public String contact() {
+        return "contact";
+    }
 }

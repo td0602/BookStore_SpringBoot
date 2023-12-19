@@ -22,6 +22,11 @@ public class OrderServiceImpl implements OrderService{
     private BookRepository bookRepository;
 
     @Override
+    public List<Order> getByPhoneNumber(String phoneNumber) {
+        return orderRepository.findAllByPhoneNumber(phoneNumber);
+    }
+
+    @Override
     public Boolean create(Order order, Long userId) {
         List<Cart> carts = cartRepository.findCartByUserId(userId);
         order.setCarts(carts);
