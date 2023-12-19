@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .successHandler(authenticationSuccessHandler())
                // .defaultSuccessUrl("/admin/home", true) // redirect when login succsessfully, true de TH ta dang o /adnin roi
-        ).logout(logout -> logout.logoutUrl("/admin-logout").logoutSuccessUrl("/logon")); // sau khi logout "/admin-logout" thi ban ve "/logon"
+        ).logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/logon")); // sau khi logout "/logout" thi ban ve "/logon"
 
         return httpSecurity.build();
     }

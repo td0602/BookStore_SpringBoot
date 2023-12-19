@@ -75,8 +75,9 @@
                   <div class="switcher-options">
                     <div class="switcher-currency-trigger">
                       <div class="setting__menu">
-                        <span><a href="#">My Account</a></span>
+                        <span><a th:href="@{/user/account}">My Account</a></span>
                         <span><a th:href="@{/logon}">Sign In</a></span>
+                        <span><a th:href="@{/logout}">Sign Out</a></span>
                         <span><a href="/register">Create An Account</a></span>
                       </div>
                     </div>
@@ -84,6 +85,10 @@
                 </div>
               </div>
             </div>
+          </li>
+          <li>
+<!--            th:text="${customUserDetails.user.fullName}"-->
+            <a th:href="@{/user/account}"></a>
           </li>
         </ul>
       </div>
