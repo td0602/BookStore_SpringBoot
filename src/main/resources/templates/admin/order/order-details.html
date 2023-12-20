@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/head::head}"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+
+<!--ALERT-->
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert">
+    <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
+    Success
+</div>
+
+<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
+    Kiểm tra lại thông tin!
+</div>
+
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <header th:replace="~{admin/fragments/header::header}"></header>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <div th:replace="~{admin/fragments/sidebar::sidebar}"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">About Order</h3>
+                            </div>
+
+                            <div class="box-body">
+                                <strong><i class="fa fa-user"></i> Costomer's Name</strong>
+                                <p class="text-muted" th:text="${order.fullName}"></p>
+                                <hr>
+                                <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
+                                <p class="text-muted" th:text="${order.address}"></p>
+                                <hr>
+                                <strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
+                                <p class="text-muted" th:text="${order.email}"></p>
+                                <hr>
+                                <strong><i class="fa fa-phone margin-r-5"></i> Phone Number</strong>
+                                <p class="text-muted" th:text="${order.phoneNumber}"></p>
+                                <hr>
+                                <strong><i class="fa fa-credit-card margin-r-5"></i> Payment</strong>
+                                <p class="text-muted" th:text="${order.payment}"></p>
+                                <hr>
+                                <strong><i class="fa fa-barcode margin-r-5"></i> Order Code</strong>
+                                <p class="text-muted" th:text="${order.orderId}"></p>
+                                <hr>
+                                <strong><i class="fa  fa-calendar-check-o margin-r-5"></i> Ordering Time</strong>
+                                <p class="text-muted" th:text="${order.date}"></p>
+                                <hr>
+                                <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                                <p class="text-muted" th:text="${order.note}"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="box box-primary">
+                            <div class="box-body box-profile">
+                                <h3 class="profile-username text-center">Order</h3>
+                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <b>Books</b> <b class="pull-right">Total</b>
+                                    </li>
+                                    <li class="list-group-item" th:each="cart:${carts}">
+                                        <a th:text="${cart.bookName}+' × '+${cart.quantity}"></a> <a class="pull-right" th:text="'$'+${cart.total}"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Cart Subtotal</b> <b class="pull-right" th:text="'$'+(${order.orderTotal}-70)"></b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Shipping</b> <b class="pull-right">$70</b>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>ORDER TOTAL</b> <b class="pull-right" th:text="'$'+${order.orderTotal}"></b>
+                                    </li>
+                                </ul>
+                                <a th:href="@{/admin/delete-order/{id}(id=${order.id})}" class="btn btn-danger btn-block"><b>Delete</b></a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer th:replace="~{admin/fragments/footer::footer}"></footer>
+
+</div>
+<script>
+    // Hiển thị thông báo và tự động đóng
+    $(document).ready(function () {
+        $(".auto-close-alert").each(function () {
+            var timeout = $(this).data("timeout") || 2000; // Thời gian tính bằng mili giây (3 giây mặc định)
+            $(this).fadeIn();
+            var currentAlert = $(this);
+            window.setTimeout(function () {
+                currentAlert.fadeOut();
+            }, timeout);
+        });
+    });
+</script>
+
+<script th:replace="~{admin/fragments/script::script}"></script>
+</body>
+</html>

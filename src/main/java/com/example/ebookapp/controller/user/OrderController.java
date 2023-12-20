@@ -101,7 +101,7 @@ public class OrderController {
     @GetMapping("/books-order/{id}")
     public String booksOrder(Model model,
                       @PathVariable("id") Long id) {
-        Order order = orderService.findByOrderId(id);
+        Order order = orderService.findById(id);
         order.setOrderTotal(order.getOrderTotal()-70);
         List<Cart> carts = cartService.getByOrderId(id);
         model.addAttribute("order", order);

@@ -62,6 +62,7 @@
                         <tbody><tr>
                             <th>Customer's Name</th>
                             <th>Order Code</th>
+                            <th>Note</th>
                             <th>Total Price</th>
                             <th>Address</th>
                             <th>Ordering Time</th>
@@ -69,7 +70,8 @@
                         </tr>
                         <tr th:each="order:${orders}">
                             <td th:text="${order.fullName}"></td>
-                            <td th:text="${order.orderId}"></td>
+                            <td><a th:href="@{/admin/order-details/{id}(id=${order.id})}" th:text="${order.orderId}"></a></td>
+                            <td th:text="${order.note}"></td>
                             <td th:text="${order.orderTotal}"></td>
                             <td th:text="${order.address}"></td>
                             <td th:text="${order.date}"></td>
