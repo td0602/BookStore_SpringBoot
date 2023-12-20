@@ -32,14 +32,7 @@ public class CartController {
                       @AuthenticationPrincipal CustomUserDetails customUserDetails,
                       RedirectAttributes redirectAttributes) {
         String myMessage = null;
-        BookDetails book = bookService.findById(bookId);
-        Cart cart = new Cart(book);
-        if(quantity!=null) {
-            cart.setQuantity(quantity);
-        }
-        cart.setTotal(cart.getQuantity()*cart.getPrice());
-        cart.setUser(customUserDetails.getUser());
-        if(cartService.create(cart)) {
+        if(cartService.create(bookId, quantity, customUserDetails.getUser())) {
             myMessage = "Đã thêm sách vào giỏ hàng!";
             redirectAttributes.addFlashAttribute("successMessage", myMessage);
             return "redirect:/grid-shop";

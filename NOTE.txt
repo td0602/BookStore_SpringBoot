@@ -1,0 +1,40 @@
+#EBOOK-APP
+ *Mô tả:
+	- Web này hướng tới 2 đối tượng người dùng: người đăng bán sách (ADMIN) và người mua sách, khi đăng nhập vào hệ thống thì hệ thống sẽ phân
+	xác thực tài khoản rồi phân quyền. Người dùng chỉ phải đăng nhập khi thực hiện một số quền cần kiểm soát như: mua sách, thêm sách vào giỏ, ...
+	- ADMIN: 
+		+ có nhiệm vụ thêm thể loại và thêm sách mới vào cửa hàng của mình, tạo các thông tin cần thiết cho cuốn sách
+		+ Xem và có thể xóa đơn hàng mà khách đã đặt, có thể xem chi tiết đơn hàng gồm thông tin khách hàng và thông tin sách trong đơn hàng
+		+ Với thể loại sách và sách ADMIN có thể thêm mới, sửa, xóa và tìm kiếm
+		+ Có thể xem thông tin về hồ sơ của mình và cập nhật thông tin trong hồ sơ
+	- USER:
+		+ Mọi người đều có thể vào trang web xem các mẫu sách mà không cần đăng nhập, chỉ khi thực hiện thao tác: thêm sách vào giỏ
+		hàng, tạo đơn hàng mới cần phải tạo tài khoản và đăng nhập.
+		+ Mật khẩu của người dùng sẽ được mã hóa.
+		+ Người dùng có thể thực hiện: thêm sách vào giỏ, tọa đơn hàng, xem thông tin chi tiết về cuốn sách, lọc sách theo thể loại,
+		sắp xếp sách theo mức giá, tìm kiếm sách.
+		+ Xem giỏ hàng, danh sách đơn hàng và chi tiết đơn hàng đã đặt
+		+ Cập nhật thông tin cá nhân.
+	- Authentication và Authorization sử dụng Spring Security
+	- CRUD sử dụng Spring Data Jpa
+	- Filter product by: category, keyword, sortBy 
+	- Pagination
+
+ *ADMIN:
+ *USER:
+
+ *Cải thiện:
+	- Có vẻ upload ảnh lớn bị lỗi không hoạt động trang, ban đầu chạy lỗi init trông Class Application --> custom lại theo video đã học
+	- Thêm nhiều data
+
+ *Hạn chế:
+	- Vẫn load tất cả dữ liệu user lên --> chưa nâng cao tính bảo mật --> cần tạo DTO chỉ chứa những dữ liệu được phép
+
+	- Cập nhật profile hay đổi mk: Cần đối chiếu với MK mã hóa dưới database, khi đổi mk cần đối chiếu mk cũ và mã hóa mk mới
+	- Khi cập nhật ảnh thì ảnh cũ vẫn lưu trong hệ thống
+	
+	- Cập nhật dc User nhưng customUserDetails vẫn chưa được cập nhật cho lần đăng nhập này, nên vẫn chưa reload dc ngay, phải đăng nhập lại
+	-->cải thiện bằng cách load lại data User từ database, nhưng header và sidebar các phần khác vẫn lấy từ customUserDetails
+	--> Có thể load lại Controller model.addAttribute tổng thể??? (khả nẳng k dc)
+
+	- Cải thiện Upload image/file: giới hạn dung lượng file khi load, check có phải image?, generic name file ...
