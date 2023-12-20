@@ -85,8 +85,28 @@ public class OrderController {
     }
 
     @GetMapping("/delete-order/{id}")
-    public String delete(@PathVariable("id") Long id) {
-        orderService.delete(id);
+    public String delete(RedirectAttributes redirectAttributes,
+                         @PathVariable("id") Long id) {
+        String myMessage = null;
+        if(orderService.delete(id)) {
+            myMessage = "Đã hủy đơn hàng!";
+            redirectAttributes.addFlashAttribute("successMessage", myMessage);
+            return "redirect:/user/orders";
+        }
+        myMessage = "Hủy đơn hàng không thành công!";
+        redirectAttributes.addFlashAttribute("errorMessage", myMessage);
         return "redirect:/user/orders";
     }
+
+    @GetMapping("/books-order/{id}")
+    public String booksOrder(Model model,
+                      @PathVariable("id") Long id) {
+        Order order = orderService.findByOrderId(id);
+        order.setOrderTotal(order.getOrderTotal()-70);
+        List<Cart> carts = cartService.getByOrderId(id);
+        model.addAttribute("order", order);
+        model.addAttribute("carts", carts);
+        return "user/order";
+    }
+
 }

@@ -9,6 +9,7 @@ import java.util.List;
 public interface OrderService {
     List<Order> getByPhoneNumber(String phoneNumber);
     Page<Order> getAll(String keyword, Integer pageNo);
+    Order findByOrderId(Long id);
     Boolean create(Order order, Long userId);
     Boolean createByOneBook(Order order, Long bookId, User user);
     Boolean delete(Long id);

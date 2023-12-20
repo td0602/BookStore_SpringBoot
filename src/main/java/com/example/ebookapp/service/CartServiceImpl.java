@@ -18,6 +18,11 @@ public class CartServiceImpl implements CartService{
         return cartRepository.findCartByUserId(userId);
     }
 
+    @Override
+    public List<Cart> getByOrderId(Long orderId) {
+        return cartRepository.findAllByOrderId(orderId);
+    }
+
 
     @Override
     public Cart findById(Long id) {

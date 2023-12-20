@@ -36,6 +36,11 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public Order findByOrderId(Long id) {
+        return orderRepository.findById(id).get();
+    }
+
+    @Override
     public Boolean create(Order order, Long userId) {
         List<Cart> carts = cartRepository.findCartByUserId(userId);
         order.setCarts(carts);

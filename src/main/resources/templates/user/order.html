@@ -72,6 +72,7 @@
                                 <div class="input_box">
                                     <label>Payment<span>*</span></label>
                                     <select class="select__option" id="payment" name="payment">
+                                        <option th:if="${order.payment != null}" th:text="${order.payment}"></option>
                                         <option>Thanh toán khi nhận hàng (COD - Cash on Delivery)</option>
                                         <option>Ví điện tử</option>
                                         <option>Tài khoản ngân hàng</option>
@@ -80,7 +81,7 @@
                                 </div>
                                 <div class="input_box">
                                     <label>Note </label>
-                                    <input type="text" placeholder="Note" id="note" name="note">
+                                    <input type="text" placeholder="Note" id="note" name="note" th:field="${order.note}">
                                 </div>
                                 <div class="margin_between">
                                     <div class="input_box space_between">
@@ -96,7 +97,8 @@
                                 <div class="cartbox__btn">
                                     <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
                                         <li></li>
-                                        <li><a id="submitOrderForm">Order</a></li>
+                                        <li th:if="${order.id == null}"><a id="submitOrderForm">Order</a></li>
+                                        <li th:if="${order.id != null}"><a class="bg-danger" onclick="return confirm('Bạn chắc chắn hủy đơn hàng?')" th:href="@{/user/delete-order/{id}(id=${order.id})}">Cancel</a></li>
                                     </ul>
                                 </div>
                             </div>

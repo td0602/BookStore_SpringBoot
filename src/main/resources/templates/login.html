@@ -1,0 +1,91 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="https://www.thymeleaf.org">
+<title>Login</title>
+<head th:replace="~{/user/fragments/head::head}"></head>
+<head>
+    <style>
+        .mg-l {
+            margin-left: 300px; /* Đặt giá trị lề trái mong muốn, ví dụ: 20px */
+        }
+    </style>
+</head>
+<body>
+
+<!--ALERT-->
+<div th:if="${successMessage}" class="alert alert-success alert-dismissible auto-close-alert text-center">
+    <!--  <button type="button" class="close" data-dismiss="alert auto-close-alert" aria-hidden="true">×</button>-->
+    <h4><i class="icon fa fa-check"></i> <span th:text="${successMessage}"></span></h4>
+    Success
+</div>
+
+<div th:if="${errorMessage}" class="alert alert-danger alert-dismissible auto-close-alert text-center">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4><i class="icon fa fa-ban"></i> <span th:text="${errorMessage}"></span></h4>
+    !
+</div>
+
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Main wrapper -->
+<div class="wrapper" id="wrapper">
+    <!-- Header -->
+    <header th:replace="~{/user/fragments/header::header}"></header>
+    <!-- //Header -->
+    <!-- Start Search Popup -->
+    <div th:replace="~{/user/fragments/search::search}"></div>
+    <!-- End Search Popup -->
+    <!-- Start breadcrumb area -->
+    <div class="ht__breadcrumb__area bg-image--1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__inner text-center">
+                        <h2 class="breadcrumb-title text-black">Login</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End breadcrumb area -->
+    <!-- Start My Account Area -->
+    <section class="my_account_area pt--80 pb--55 bg--white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="my__account__wrapper mg-l">
+                        <h3 class="account__title">Form Login</h3>
+                        <form method="post" th:action="@{/logon}">
+                            <div class="account__form">
+                                <div class="input__box">
+                                    <label>User Name <span>*</span></label>
+                                    <input type="text" required name="username">
+                                </div>
+                                <div class="input__box">
+                                    <label>Password<span>*</span></label>
+                                    <input type="password" name="password" required>
+                                </div>
+                                <div class="form__btn">
+                                    <button>Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End My Account Area -->
+    <!-- Footer Area -->
+    <footer th:replace="~{/user/fragments/footer::footer}"></footer>
+    <!-- //Footer Area -->
+
+</div>
+<!-- //Main wrapper -->
+
+<script th:replace="~{/user/fragments/script::script}"></script>
+
+</body>
+</html>

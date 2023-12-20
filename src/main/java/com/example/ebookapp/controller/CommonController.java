@@ -37,13 +37,13 @@ public class CommonController {
 
     @GetMapping("/logon")
     public String logon() {
-        return "logon";
+        return "login";
     }
     @GetMapping("/register")
     public String registerView(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "register";
+        return "create-account";
     }
     @PostMapping("/register")
     public String register(RedirectAttributes redirectAttributes,
