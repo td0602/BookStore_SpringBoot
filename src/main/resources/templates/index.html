@@ -4,7 +4,12 @@
 <!-- Mirrored from htmldemo.net/boighor/boighor/index-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Dec 2023 17:01:18 GMT -->
 
 <head th:replace="~{/user/fragments/head::head}"></head>
-
+<head>
+  <!-- Thêm thymeleaf namespace -->
+  <script th:inline="javascript">
+    var book = /*[[${book}]]*/ null;
+  </script>
+</head>
 <body>
 
 <!--ALERT-->
@@ -78,7 +83,9 @@
                               class="bi bi-shopping-cart-full"></i></a></li>
                       <li><a data-bs-toggle="modal" title="Quick View"
                              class="quickview modal-view detail-link"
-                             href="#productmodal"><i class="bi bi-search"></i></a></li>
+                             data-bs-target="#productmodal"
+                             th:data-id="${book.id}" th:data-name="${book.bookName}" th:data-image="${book.image}" th:data-price="${book.price}"
+                              ><i class="bi bi-search"></i></a></li>
                     </ul>
                   </div>
                 </div>
@@ -155,8 +162,10 @@
                           <li><a class="wishlist" th:href="@{'/user/add-cart?bookId='+${book1.id}}"><i
                                   class="bi bi-shopping-cart-full"></i></a></li>
                           <li><a data-bs-toggle="modal" title="Quick View"
+                                 data-bs-target="#productmodal"
                                  class="quickview modal-view detail-link"
-                                 href="#productmodal"><i class="bi bi-search"></i></a>
+                                 th:data-id="${book1.id}" th:data-name="${book1.bookName}" th:data-image="${book1.image}" th:data-price="${book1.price}"
+                          ><i class="bi bi-search"></i></a>
                           </li>
                         </ul>
                       </div>
@@ -199,10 +208,14 @@
                                   class="bi bi-shopping-bag4"></i></a></li>
                           <li><a class="wishlist" th:href="@{'/user/add-cart?bookId='+${book2.id}}"><i
                                   class="bi bi-shopping-cart-full"></i></a></li>
+                          <!--Chu ys: data-<chu in thuong> -->
                           <li><a data-bs-toggle="modal" title="Quick View"
+                                 data-bs-target="#productmodal"
                                  class="quickview modal-view detail-link"
-                                 href="#productmodal"><i class="bi bi-search"></i></a>
+                                 th:data-id="${book2.id}" th:data-name="${book2.bookName}" th:data-image="${book2.image}" th:data-price="${book2.price}"
+                                 ><i class="bi bi-search"></i></a>
                           </li>
+
                         </ul>
                       </div>
                     </div>
@@ -233,11 +246,8 @@
   <!-- QUICKVIEW PRODUCT -->
   <div th:replace="~{/user/fragments/quickview::quickview}"></div>
   <!-- END QUICKVIEW PRODUCT -->
+  <div th:replace="~{/user/fragments/search::search}"></div>
 </div>
-<!-- //Main wrapper -->
-
-<!-- JS Files -->
 <div th:replace="~{/user/fragments/script::script}"></div>
-
 </body>
 </html>

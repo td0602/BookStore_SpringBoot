@@ -4,6 +4,9 @@
     <script th:src="@{/assets-user/js/vendor/bootstrap.min.js}"></script>
     <script th:src="@{/assets-user/js/plugins.js}"></script>
     <script th:src="@{/assets-user/js/active.js}"></script>
+    <!--22.12.2023-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
 
     <script>
         // Hiển thị thông báo và tự động đóng
@@ -142,6 +145,27 @@
                     }
                 });
             }
+        });
+    </script>
+
+    //Truyen data vào Modal
+    <script>
+        $(document).ready(function() {
+            // Handle the show.bs.modal event when the modal is about to be shown
+            $('#productmodal').on('show.bs.modal', function (event) {
+                var click = $(event.relatedTarget); // Button that triggered the modal
+                var bookId = click.data('id');
+                var bookName = click.data('name'); // Extract product info from data-product attribute
+                var price = click.data('price');
+                var image = click.data('image');
+
+                // Update modal content based on productInfo
+                $('#bookId').val(bookId);
+                $('#bookName').text(bookName);
+                $('#bookPrice').text('$'+price);
+                $('#oldPrice').text('$'+price*2);
+                $('#bookImage').attr('src', '/uploads/books/'+image);
+            });
         });
     </script>
 </div>

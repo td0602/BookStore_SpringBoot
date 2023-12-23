@@ -78,7 +78,7 @@
 <!--                                        <input type="hidden" id="id" name="id" th:value="${cart.id}">-->
 <!--                                        <input type="hidden" th:id="'result'+${cart.id}" th:value="${cart.total}">-->
                                         <td class="product-name"><a href="#" th:text="${cart.bookName}"></a></td>
-                                        <td class="product-price">$<span type="text" th:id="'price'+${cart.id}" class="amount" th:text="${cart.price}"></span></td>
+                                        <td class="product-price"><span type="text" th:id="'price'+${cart.id}" class="amount" th:text="'$'+${cart.price}"></span></td>
                                         <td class="product-quantity"><input type="number" class="quantity-input" th:id="quantity+${cart.id}" name="quantity" th:value="${cart.quantity}" min="1"></td>
                                         <td class="product-subtotal">
                                             $<span th:id="'result'+${cart.id}" th:text="(${cart.price}*${cart.quantity})"></span>

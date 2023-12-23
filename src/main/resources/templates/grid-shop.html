@@ -100,7 +100,7 @@
                                         <option value="decreasing">Decreasing Price</option>
                                     </select>
                                 </div>
-
+                                <!--Searrch-->
                                 <form th:action="@{/grid-shop}" method="get">
                                     <div class="box-tools pull-right margin-bottom">
                                         <div class="input-group input-group-sm hidden-xs" style="width: 200px;">
@@ -147,7 +147,9 @@
                                                             class="bi bi-shopping-cart-full"></i></a></li>
                                                     <li><a data-bs-toggle="modal" title="Quick View"
                                                            class="quickview modal-view detail-link"
-                                                           href="#productmodal"><i class="bi bi-search"></i></a>
+                                                           data-bs-target="#productmodal"
+                                                           th:data-id="${book.id}" th:data-name="${book.bookName}" th:data-image="${book.image}" th:data-price="${book.price}"
+                                                            ><i class="bi bi-search"></i></a>
                                                     </li>
                                                 </ul>
                                             </div>

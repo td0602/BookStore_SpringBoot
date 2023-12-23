@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <title>Product Modal Example</title>
+</head>
+<head th:replace="~{/user/fragments/head::head}"></head>
+<body>
+
+<!-- Trigger button -->
+<a data-bs-toggle="modal" data-bs-target="#productmodal" data-product='{"name": "Example Product", "price": 29.99, "color": "Blue", "size": "M"}'>
+    Open Product Modal
+</a>
+
+<div th:replace="~{/user/fragments/quickview::quickview}"></div>
+
+<!-- Modal -->
+<div class="modal fade" id="product-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="product-modal-title">Product Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="product-modal-price">Price: $0.00</p>
+                <p id="product-modal-color">Color: N/A</p>
+                <p id="product-modal-size">Size: N/A</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>-->
+<!--<script src="your_script.js"></script> &lt;!&ndash; Replace 'your_script.js' with your actual JavaScript file if you have one &ndash;&gt;-->
+<script th:replace="~{/user/fragments/script::script}"></script>
+<script>
+    $(document).ready(function() {
+        // Handle the show.bs.modal event when the modal is about to be shown
+        $('#productmodal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var productInfo = button.data('product'); // Extract product info from data-product attribute
+
+            // Update modal content based on productInfo
+            $('#bookName').text(productInfo.name);
+        //     $('#product-modal-title').text(productInfo.name);
+        //     $('#product-modal-price').text('Price: $' + productInfo.price.toFixed(2));
+        //     $('#product-modal-color').text('Color: ' + productInfo.color);
+        //     $('#product-modal-size').text('Size: ' + productInfo.size);
+        });
+    });
+
+</script>
+</body>
+</html>
