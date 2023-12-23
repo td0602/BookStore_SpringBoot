@@ -158,6 +158,7 @@
                 var bookName = click.data('name'); // Extract product info from data-product attribute
                 var price = click.data('price');
                 var image = click.data('image');
+                var category = click.data('category');
 
                 // Update modal content based on productInfo
                 $('#bookId').val(bookId);
@@ -165,6 +166,7 @@
                 $('#bookPrice').text('$'+price);
                 $('#oldPrice').text('$'+price*2);
                 $('#bookImage').attr('src', '/uploads/books/'+image);
+                $('#bookCategory').text(category);
             });
         });
     </script>

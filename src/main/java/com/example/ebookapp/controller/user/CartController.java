@@ -23,8 +23,6 @@ import java.util.List;
 public class CartController {
     @Autowired
     private CartService cartService;
-    @Autowired
-    private BookService bookService;
 
     @GetMapping("/add-cart")
     public String add(@RequestParam("bookId") Long bookId,

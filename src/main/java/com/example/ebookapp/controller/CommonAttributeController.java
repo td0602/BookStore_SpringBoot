@@ -19,8 +19,6 @@ import java.util.List;
 public class CommonAttributeController {
     @Autowired
     private CategoryService categoryService;
-    @Autowired
-    private BookService bookService;
 
     @ModelAttribute
     public void addCommonAtributes(Model model, @AuthenticationPrincipal CustomUserDetails customUserDetails) {

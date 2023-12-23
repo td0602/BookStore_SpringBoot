@@ -13,10 +13,4 @@ public class EbookAppApplication {
 		SpringApplication.run(EbookAppApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner init(StorageService storageService) {
-		return (args) -> {
-			storageService.init();
-		};
-	}
 }

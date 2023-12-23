@@ -4,6 +4,7 @@ import com.example.ebookapp.model.CustomUserDetails;
 import com.example.ebookapp.model.User;
 import com.example.ebookapp.service.StorageService;
 import com.example.ebookapp.service.UserService;
+import com.example.ebookapp.test.upload_file.IStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -48,15 +49,12 @@ public class AdminController {
         String myMessage = null;
         newPassword = newPassword.trim();
 
-        storageService.storeUserImage(fileImage);
-        String fileName = fileImage.getOriginalFilename();
-        if(fileName != null) {
-            if(!fileName.equals("")) {
+        if(passwordEncoder.matches(oldPassword, user.getPassword())) {
+            String fileName = storageService.storeUserImage(fileImage);
+            if(fileName != null && !fileName.equals("")) {
                 user.setImage(fileName);
             }
-        }
 
-        if(passwordEncoder.matches(oldPassword, user.getPassword())) {
             if(newPassword != null && !newPassword.equals("")) {
                 user.setPassword(passwordEncoder.encode(newPassword));
             }

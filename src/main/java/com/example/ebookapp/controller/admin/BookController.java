@@ -6,6 +6,7 @@ import com.example.ebookapp.model.CustomUserDetails;
 import com.example.ebookapp.service.BookService;
 import com.example.ebookapp.service.CategoryService;
 import com.example.ebookapp.service.StorageService;
+import com.example.ebookapp.test.upload_file.IStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,27 +27,12 @@ public class BookController {
     private BookService bookService;
     @Autowired
     private StorageService storageService;
-
     @GetMapping("/books")
     public String index(Model model,
                         @RequestParam(name = "keyword", required = false) String keyword,
                         @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                         @RequestParam(name = "categoryId", required = false) Long categoryId,
                         @RequestParam(value = "orderBy", required = false) String orderBy) {
-//        Page<BookDetails> list = bookService.getAll(pageNo);
-//        if (categoryId != null) {
-//            list = bookService.getByCategory(categoryId, pageNo);
-//            model.addAttribute("categoryId", categoryId);
-//        }
-//        if(keyword != null && !keyword.equals("")) {
-//            list = bookService.search(keyword, pageNo);
-//            model.addAttribute("keyword", keyword);
-//        }
-//        model.addAttribute("totalPage", list.getTotalPages());
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("list", list);
-//        return "admin/book/index";
-
         //Lam lai
         Category category = null;
         if(categoryId != null) {
@@ -80,8 +66,7 @@ public class BookController {
     public String add(Model model, @ModelAttribute("bookDetails") BookDetails bookDetails,
                       @RequestParam("fileImage") MultipartFile fileImage) {
         String myMessage = null;
-        storageService.storeBookImage(fileImage);
-        bookDetails.setImage(fileImage.getOriginalFilename());
+        bookDetails.setImage(storageService.storeBookImage(fileImage));
         if(bookService.create(bookDetails)) {
             myMessage = "Thêm mới thành công!";
             model.addAttribute("successMessage", myMessage);
@@ -96,10 +81,7 @@ public class BookController {
 
     @GetMapping("/edit-book/{id}")
     public String viewEdit(Model model, @PathVariable("id") Long id) {
-//        List<Category> categoryList = categoryService.getAll();
         BookDetails bookDetails = bookService.findById(id);
-//        model.addAttribute("customUserDetails", customUserDetails);
-//        model.addAttribute("categoryList",categoryList);
         model.addAttribute("bookDetails", bookDetails);
         return "admin/book/edit";
     }
@@ -110,8 +92,7 @@ public class BookController {
                        @RequestParam("fileImage") MultipartFile fileImage) {
         String myMessage = null;
         try {
-            storageService.storeBookImage(fileImage);
-            String fileName = fileImage.getOriginalFilename();
+            String fileName = storageService.storeBookImage(fileImage);
             if(fileName != null && !fileName.equals("")) {
                 bookDetails.setImage(fileName);
             }

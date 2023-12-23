@@ -55,6 +55,7 @@
                             <div class="col-lg-6 col-12">
                                 <div class="product__info__main">
                                     <h1 th:text="${book.bookName}"></h1>
+                                    <p><b>Thể loại: </b><span th:text="${book.category.categoryName}"></span></p>
                                     <div class="product-reviews-summary d-flex">
                                         <ul class="rating-summary d-flex">
                                             <li><i class="zmdi zmdi-star-outline"></i></li>

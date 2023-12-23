@@ -1,4 +1,4 @@
-package com.example.ebookapp.service;
+package com.example.ebookapp.test.upload_file;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Service;
@@ -13,12 +13,12 @@ import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 
 @Service
-public class FileSystemStorageService implements StorageService{
+public class ImageStoregeService implements IStorageService {
 
     private final Path storageUserFolder = Paths.get("src/main/resources/static/uploads/users");
     private final Path storageBookFolder = Paths.get("src/main/resources/static/uploads/books");
 
-    public FileSystemStorageService() {
+    public ImageStoregeService() {
         try {
             Files.createDirectories(storageUserFolder);
             Files.createDirectories(storageBookFolder);

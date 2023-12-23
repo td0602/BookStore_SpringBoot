@@ -84,7 +84,7 @@
                       <li><a data-bs-toggle="modal" title="Quick View"
                              class="quickview modal-view detail-link"
                              data-bs-target="#productmodal"
-                             th:data-id="${book.id}" th:data-name="${book.bookName}" th:data-image="${book.image}" th:data-price="${book.price}"
+                             th:data-id="${book.id}" th:data-name="${book.bookName}" th:data-image="${book.image}" th:data-price="${book.price}" th:data-category="${book.category.categoryName}"
                               ><i class="bi bi-search"></i></a></li>
                     </ul>
                   </div>
@@ -164,7 +164,7 @@
                           <li><a data-bs-toggle="modal" title="Quick View"
                                  data-bs-target="#productmodal"
                                  class="quickview modal-view detail-link"
-                                 th:data-id="${book1.id}" th:data-name="${book1.bookName}" th:data-image="${book1.image}" th:data-price="${book1.price}"
+                                 th:data-id="${book1.id}" th:data-name="${book1.bookName}" th:data-image="${book1.image}" th:data-price="${book1.price}" th:data-category="${book1.category.categoryName}"
                           ><i class="bi bi-search"></i></a>
                           </li>
                         </ul>
@@ -212,7 +212,7 @@
                           <li><a data-bs-toggle="modal" title="Quick View"
                                  data-bs-target="#productmodal"
                                  class="quickview modal-view detail-link"
-                                 th:data-id="${book2.id}" th:data-name="${book2.bookName}" th:data-image="${book2.image}" th:data-price="${book2.price}"
+                                 th:data-id="${book2.id}" th:data-name="${book2.bookName}" th:data-image="${book2.image}" th:data-price="${book2.price}" th:data-category="${book2.category.categoryName}"
                                  ><i class="bi bi-search"></i></a>
                           </li>
 
